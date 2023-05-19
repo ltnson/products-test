@@ -33,27 +33,40 @@ const axiosClient = {
   },
 
   deleteByID: async (id: number) => {
-    return axios
-      .delete(`https://dummyjson.com/products/${id}`, {
-        method: "DELETE",
-      })
-      .then((response) => response.data)
-      .catch((err) => {
-        throw err;
-      });
+    try {
+      const response = await axios.delete(
+        `https://dummyjson.com/products/${id}`
+      );
+      const jsonData = response.data;
+      return jsonData;
+    } catch (err) {
+      throw err;
+    }
   },
 
   updateByID: async (id: string, payload: any) => {
-    return axios
-      .put(`https://dummyjson.com/products/${id}`, {
-        method: "PUT",
+    try {
+      const response = await axios.put(`https://dummyjson.com/products/${id}`, {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-      })
-      .then((response) => response.data)
-      .catch((err) => {
-        throw err;
       });
+      const jsonData = response.data;
+      return jsonData;
+    } catch (err) {
+      throw err;
+    }
+  },
+  addOne: async (payload: any) => {
+    try {
+      const response = await axios.post("https://dummyjson.com/products/add", {
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const jsonData = response.data;
+      return jsonData;
+    } catch (err) {
+      throw err;
+    }
   },
 };
 

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { Product, FormData } from "../../types/types";
 
@@ -27,11 +27,11 @@ const schema = yup.object({
 
 const EditProduct = () => {
   const { id } = useParams() as { id: string };
+  const navigate = useNavigate();
 
   const { data } = useQuery({
     queryKey: ["product", id],
     queryFn: () => typeApi.getByID(id),
-    staleTime: 1000 * 10,
     onError: (error) => {
       if (error) {
         if (axios.isAxiosError(error)) {
@@ -53,35 +53,51 @@ const EditProduct = () => {
     mode: "onBlur",
   });
 
-  const { mutateAsync, error } = useMutation((data: Product) =>
+  const updateProduct = useMutation((data: Product) =>
     typeApi.updateByID(id, data)
   );
 
   const onSubmit = (formData: FormData) => {
-    console.log(formData);
     if (data) {
       data.title = formData.title;
       data.description = formData.description;
-      mutateAsync(data).then(() => {
-        if (error) {
-          if (axios.isAxiosError(error)) {
-            toast.error(error?.response?.data.errors.message[0]);
-          } else {
-            console.log(error);
+      console.log(data);
+      updateProduct
+        .mutateAsync(data)
+        .then(() => {
+          if (updateProduct.error) {
+            if (axios.isAxiosError(updateProduct.error)) {
+              toast.error(
+                updateProduct.error?.response?.data.errors.message[0]
+              );
+            } else {
+              console.log(updateProduct.error);
+            }
           }
-        }
-      });
+        })
+        .then(() => {
+          navigate("/");
+        });
     }
   };
 
   return (
-    <div className="bg-zinc-200 px-96 py-10 ">
-      <div className=" bg-white h-screen rounded-md p-10 h-full">
+    <div className="bg-zinc-200 px-96 py-10">
+      <div className="block w-[44rem] bg-white h-screen rounded-md p-10 h-full">
         <form>
           <Toolbar>
-            <Typography component="div">Edit Station</Typography>
+            <Typography
+              component="div"
+              sx={{ fontSize: "18px", fontWeight: "500" }}
+            >
+              Edit Station
+            </Typography>
             <Typography component="div">
-              <Button className="button-1" sx={{ marginRight: "16px" }}>
+              <Button
+                className="button-1"
+                sx={{ marginRight: "16px" }}
+                onClick={() => navigate("/")}
+              >
                 Cancel
               </Button>
               <Button

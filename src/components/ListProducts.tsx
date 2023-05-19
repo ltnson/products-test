@@ -49,6 +49,18 @@ const ListProducts = () => {
     return;
   };
 
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  const handleGoPageNumb = (value: number) => {
+    setSkip(value);
+    scrollToTop();
+  };
+
   if (search?.data && search.data.products.length > 0) {
     return (
       <div className="h-screen text-slate-500 text-sm">
@@ -59,6 +71,9 @@ const ListProducts = () => {
           </Typography>
         )}
         {search.data && <ListBody items={search.data?.products} />}
+        <Button className="button-1" sx={{ margin: "20px 0 100px 50px" }}>
+          Back to Products
+        </Button>
       </div>
     );
   }
@@ -101,7 +116,7 @@ const ListProducts = () => {
 
             <ButtonGroup color="inherit" size="small">
               <Button
-                onClick={() => setSkip(skip > 0 ? skip - limit : skip)}
+                onClick={() => handleGoPageNumb(skip > 0 ? skip - limit : skip)}
                 sx={{ borderRadius: "0" }}
               >
                 Previous
@@ -109,7 +124,7 @@ const ListProducts = () => {
               {buttons.map((i) => (
                 <Button
                   key={i}
-                  onClick={() => setSkip(limit * i - limit)}
+                  onClick={() => handleGoPageNumb(limit * i - limit)}
                   className={skip === i * limit - limit ? "button-1" : ""}
                 >
                   {i}
@@ -117,7 +132,9 @@ const ListProducts = () => {
               ))}
               <Button
                 onClick={() =>
-                  setSkip(skip < products.data?.total ? skip + limit : skip)
+                  handleGoPageNumb(
+                    skip < products.data?.total ? skip + limit : skip
+                  )
                 }
                 sx={{ borderRadius: "0" }}
               >

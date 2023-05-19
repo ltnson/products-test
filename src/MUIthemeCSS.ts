@@ -4,6 +4,7 @@ const theme = createTheme({
   typography: {
     fontFamily: "Exo",
   },
+
   components: {
     MuiAvatar: {
       styleOverrides: {
@@ -150,6 +151,13 @@ const theme = createTheme({
         root: {
           color: "rgb(51 65 85)",
           fontSize: "14px",
+        },
+      },
+    },
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          "&hover": "red",
         },
       },
     },

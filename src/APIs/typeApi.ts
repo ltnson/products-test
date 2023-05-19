@@ -1,5 +1,5 @@
 import axiosClient from "./axiosClient";
-import { DataProducts, Product } from "../types/types";
+import { DataProducts, DummyData, Product } from "../types/types";
 
 const typeApi = {
   getLimit(limit: number, skip: number): Promise<DataProducts> {
@@ -16,6 +16,9 @@ const typeApi = {
   },
   updateByID(id: string, payload: Product): Promise<Product> {
     return axiosClient.updateByID(id, payload);
+  },
+  addOne(payload: DummyData): Promise<Product> {
+    return axiosClient.addOne(payload);
   },
 };
 

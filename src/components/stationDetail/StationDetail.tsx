@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useQuery } from "react-query";
 import typeApi from "../../APIs/typeApi";
@@ -9,6 +9,7 @@ import { Typography, Toolbar, Button, CardMedia, Box } from "@mui/material";
 
 const StationDetail = () => {
   const { id } = useParams() as { id: string };
+  const navigate = useNavigate();
 
   const { data } = useQuery({
     queryKey: ["product", id],
@@ -27,14 +28,28 @@ const StationDetail = () => {
 
   return (
     <div className="bg-zinc-200 px-96 py-10 text-zinc-600 leading-8">
-      <Box className=" bg-white rounded-md p-10 ">
+      <Box className="block w-[44rem] bg-white rounded-md p-10 ">
         <Toolbar>
-          <Typography component="div">Station Detail</Typography>
+          <Typography
+            component="div"
+            sx={{ fontSize: "20px", fontWeight: "500" }}
+          >
+            Station Detail
+          </Typography>
           <Typography component="div">
-            <Button className="button-1" sx={{ marginRight: "16px" }}>
-              Cancel
+            <Button
+              className="button-1"
+              sx={{ marginRight: "16px" }}
+              onClick={() => navigate("/")}
+            >
+              Close
             </Button>
-            <Button className="button-2">Save</Button>
+            <Button
+              className="button-2"
+              onClick={() => navigate(`/edit-product/${id}`)}
+            >
+              Edit
+            </Button>
           </Typography>
         </Toolbar>
         <CardMedia

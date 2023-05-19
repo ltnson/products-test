@@ -25,3 +25,7 @@ export type FormData = {
   title: string;
   description: string;
 };
+
+export type VoidFnt = () => void;
+
+export type DummyData = Omit<Product, "id">;

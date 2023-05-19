@@ -1,33 +1,28 @@
 import { useNavigate } from "react-router-dom";
 
-import typeApi from "../../APIs/typeApi";
-
-import { useMutation, useQueryClient } from "react-query";
-import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
-
 import { TableRow, TableCell, Button, Stack, Switch } from "@mui/material";
+import DeleteUi from "./DeleteUi";
+import { useState } from "react";
 
-const ItemProduct = ({ item }: { item: any }) => {
+const ItemProduct = ({
+  item,
+  onlyDelUI,
+  onSetOnly,
+}: {
+  item: any;
+  onlyDelUI: Boolean;
+  onSetOnly: any;
+}) => {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const { mutateAsync, error } = useMutation(() => typeApi.deleteByID(item.id));
-  const handleDelete = () => {
-    mutateAsync().then(() => {
-      if (error) {
-        if (axios.isAxiosError(error)) {
-          toast.error(error?.response?.data.errors.message[0]);
-        } else {
-          console.log(error);
-        }
-      }
-    });
-  };
 
-  const handlePrefetch = (id: string) => {
-    queryClient.prefetchQuery(["product", id], {
-      queryFn: () => typeApi.getByID(id),
-    });
+  const [hidden, setHidden] = useState<Boolean>(false);
+
+  const handleSetHidden = (value: Boolean) => {
+    if (onlyDelUI && value === true) {
+      return;
+    }
+    onSetOnly();
+    setHidden(value);
   };
 
   return (
@@ -40,11 +35,8 @@ const ItemProduct = ({ item }: { item: any }) => {
       <TableCell>
         <Switch />
       </TableCell>
-      <TableCell>
-        <Stack
-          direction="row"
-          onMouseEnter={() => handlePrefetch(String(item.id))}
-        >
+      <TableCell className="relative">
+        <Stack direction="row">
           <Button
             sx={{ color: "#004744", paddingLeft: "0" }}
             onClick={() => navigate(`/station-detail/${item.id}`)}
@@ -59,24 +51,15 @@ const ItemProduct = ({ item }: { item: any }) => {
           </Button>
           <Button
             sx={{ color: "#7C7B7B", paddingLeft: "0" }}
-            onClick={handleDelete}
+            onClick={() => handleSetHidden(!hidden)}
           >
             DELETE
           </Button>
         </Stack>
+        {hidden && (
+          <DeleteUi id={item.id as number} onSetHidden={handleSetHidden} />
+        )}
       </TableCell>
-      <Toaster
-        position="top-right"
-        reverseOrder={false}
-        toastOptions={{
-          className: "",
-          style: {
-            border: "0.2px solid #7367F0",
-            padding: "8px",
-            color: "#7367F0",
-          },
-        }}
-      />
     </TableRow>
   );
 };

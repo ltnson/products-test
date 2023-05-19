@@ -11,13 +11,18 @@ import {
   Box,
 } from "@mui/material";
 import ItemProduct from "./ItemProduct";
+import { useState } from "react";
 
 const ListBody = ({ items }: { items: Products[] }) => {
+  const [onlyDelUI, setOnlyDelUI] = useState<Boolean>(false);
+  const handleSetOnly = () => {
+    setOnlyDelUI(!onlyDelUI);
+  };
   return (
     <Box sx={{ width: "97%" }}>
       <TableContainer
         component={Paper}
-        sx={{ margin: "0 20px", marginRight: "200px" }}
+        sx={{ margin: "0 20px", marginRight: "20px", paddingBottom: "230px" }}
       >
         <Table aria-label="simple table">
           <TableHead>
@@ -32,8 +37,13 @@ const ListBody = ({ items }: { items: Products[] }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {items.map((item, index) => (
-              <ItemProduct key={index} item={item} />
+            {items.map((item: Products, index) => (
+              <ItemProduct
+                key={index}
+                item={item}
+                onlyDelUI={onlyDelUI}
+                onSetOnly={handleSetOnly}
+              />
             ))}
           </TableBody>
         </Table>
