@@ -1,6 +1,9 @@
 import { createTheme } from "@mui/material";
 
 const theme = createTheme({
+  typography: {
+    fontFamily: "Exo",
+  },
   components: {
     MuiAvatar: {
       styleOverrides: {
@@ -131,6 +134,22 @@ const theme = createTheme({
           marginTop: "6px",
           height: "14px",
           width: "14px",
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          color: "rgb(51 65 85)",
+          fontSize: "14px",
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          color: "rgb(51 65 85)",
+          fontSize: "14px",
         },
       },
     },

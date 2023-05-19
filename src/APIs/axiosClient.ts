@@ -25,7 +25,7 @@ const axiosClient = {
   },
   getSearch: async (searchKey: string) => {
     return axios
-      .get(`https://dummyjson.com/products/search?q=${searchKey}`)
+      .get(`https://dummyjson.com/products/search?${searchKey}`)
       .then((response) => response.data)
       .catch((err) => {
         throw err;

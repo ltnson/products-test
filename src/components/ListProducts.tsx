@@ -1,54 +1,77 @@
-import ListTop from "./ListProducts/ListTop";
-import ListBody from "./ListProducts/ListBody";
 import { useState } from "react";
+
+import { useQuery } from "react-query";
+import typeApi from "../APIs/typeApi";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+
 import {
   Button,
   ButtonGroup,
   Typography,
   Box,
   MenuItem,
-  TextField,
+  Select,
 } from "@mui/material";
 
-import { useQuery, useQueryClient } from "react-query";
-import typeApi from "../APIs/typeApi";
-import { DataProducts } from "../types/types";
+import ListTop from "./ListProducts/ListTop";
+import ListBody from "./ListProducts/ListBody";
 
 const ListProducts = () => {
   const [limit, setLimit] = useState<number>(5);
   const [skip, setSkip] = useState<number>(0);
   const [key, setKey] = useState<string>("");
   const buttons = [1, 2, 3, 4, 5, 6];
-  const [products, setProducts] = useState<DataProducts>();
-  const queryClient = useQueryClient();
 
-  useQuery({
-    queryKey: ["search", key],
-    queryFn: async () => await typeApi.getSearch(key),
-    onSuccess: (data) => {
-      setProducts(data);
-    },
-  });
-  console.log(products);
-
-  useQuery({
+  const products = useQuery({
     queryKey: ["products", limit, skip],
     queryFn: () => typeApi.getLimit(limit, skip),
-    onSuccess: (data) => {
-      setProducts(data);
+    onError: (error) => {
+      if (error) {
+        if (axios.isAxiosError(error)) {
+          toast.error(error?.response?.data.errors.message[0]);
+        } else {
+          console.log(error);
+        }
+      }
     },
+  });
+
+  const search = useQuery({
+    queryKey: ["search", key],
+    queryFn: () => typeApi.getSearch(key),
   });
 
   const handleSearchKey = (searchKey: string) => {
-    setKey(searchKey);
+    if (searchKey !== "") {
+      setKey("q=" + searchKey);
+    }
+    return;
   };
 
+  if (search?.data && search.data.products.length > 0) {
+    return (
+      <div className="h-screen text-slate-500 text-sm">
+        <ListTop onSearch={handleSearchKey} />
+        {search.isLoading && (
+          <Typography variant="h6" className="mx-48">
+            Loading....
+          </Typography>
+        )}
+        {search.data && <ListBody items={search.data?.products} />}
+      </div>
+    );
+  }
   return (
-    <div className="h-screen text-slate-500 text-sm">
+    <div className="h-screen text-slate-700 text-sm">
       <ListTop onSearch={handleSearchKey} />
-      {/* && <Typography variant="h6">Loading....</Typography> */}
-      {products && <ListBody items={products?.products} />}
-      {products && (
+      {products.isLoading && (
+        <Typography variant="h6" className="mx-48">
+          Loading....
+        </Typography>
+      )}
+      {products.data && <ListBody items={products.data?.products} />}
+      {products.data && (
         <Box
           sx={{
             margin: "30px",
@@ -57,27 +80,30 @@ const ListProducts = () => {
           }}
         >
           <Typography>
-            Showing {skip > 0 ? skip / limit : 1} to{" "}
-            {Math.ceil(products?.limit / 30)} of {products?.total} entries
+            Showing {skip > 0 ? skip / limit + 1 : 1} to{" "}
+            {Math.ceil(products.data?.limit / 30)} of {products.data?.total}{" "}
+            entries
           </Typography>
-
           <Typography component="div" sx={{ display: "flex" }}>
-            <TextField
-              size="small"
-              id="outlined-basic"
-              variant="outlined"
-              select
-              fullWidth
+            <Select
               value={limit}
-              onChange={(e) => setLimit(parseInt(e.target.value))}
-              sx={{ width: "120px", fontSize: "14px", color: "inherit" }}
+              sx={{
+                width: "130px",
+                borderRadius: "0",
+                margin: "0 20px",
+                border: "1px solid black",
+              }}
+              onChange={(e) => setLimit(e.target.value as number)}
             >
               <MenuItem value={10}>10 per page</MenuItem>
               <MenuItem value={5}>5 per page</MenuItem>
-            </TextField>
+            </Select>
 
             <ButtonGroup color="inherit" size="small">
-              <Button onClick={() => setSkip(skip > 0 ? skip - limit : skip)}>
+              <Button
+                onClick={() => setSkip(skip > 0 ? skip - limit : skip)}
+                sx={{ borderRadius: "0" }}
+              >
                 Previous
               </Button>
               {buttons.map((i) => (
@@ -91,13 +117,26 @@ const ListProducts = () => {
               ))}
               <Button
                 onClick={() =>
-                  setSkip(skip < products?.total ? skip + limit : skip)
+                  setSkip(skip < products.data?.total ? skip + limit : skip)
                 }
+                sx={{ borderRadius: "0" }}
               >
                 Next
               </Button>
             </ButtonGroup>
           </Typography>
+          <Toaster
+            position="top-right"
+            reverseOrder={false}
+            toastOptions={{
+              className: "",
+              style: {
+                border: "0.2px solid #7367F0",
+                padding: "8px",
+                color: "#7367F0",
+              },
+            }}
+          />
         </Box>
       )}
     </div>

@@ -1,7 +1,13 @@
+import { FormData } from "../../types/types";
+
+// import axios from "axios";
+// import toast, { Toaster } from "react-hot-toast";
+
+// import { useMutation } from "react-query";
+
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { FormData } from "../../types/types";
 
 import { Button, TextareaAutosize, Toolbar, Typography } from "@mui/material";
 
@@ -31,7 +37,20 @@ const AddProduct = () => {
     mode: "onBlur",
   });
 
-  const onSubmit = (formData: FormData) => console.log(formData);
+  // const {mutateAsync} = useMutation((product)=> callAxiosAdd(product))
+
+  const onSubmit = (formData: FormData) => {
+    console.log(formData);
+    // mutateAsync(formData).then(()=>{
+    //   if (error) {
+    //     if (axios.isAxiosError(error)) {
+    //       toast.error(error?.response?.data.errors.message[0]);
+    //     } else {
+    //       console.log(error);
+    //     }
+    //   }
+    // })
+  };
 
   return (
     <div className="bg-zinc-200 px-96 py-10 ">
@@ -89,6 +108,18 @@ const AddProduct = () => {
           </div>
         </form>
       </div>
+      {/* <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          className: "",
+          style: {
+            border: "0.2px solid #7367F0",
+            padding: "8px",
+            color: "#7367F0",
+          },
+        }}
+      /> */}
     </div>
   );
 };

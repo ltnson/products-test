@@ -1,18 +1,28 @@
-import { Typography, Toolbar, Button, CardMedia, Box } from "@mui/material";
-import { useState } from "react";
-
 import { useParams } from "react-router-dom";
-import { Product } from "../../types/types";
+
 import { useQuery } from "react-query";
 import typeApi from "../../APIs/typeApi";
+import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
+
+import { Typography, Toolbar, Button, CardMedia, Box } from "@mui/material";
 
 const StationDetail = () => {
   const { id } = useParams() as { id: string };
-  const [data, setData] = useState<Product>();
-  useQuery({
+
+  const { data } = useQuery({
     queryKey: ["product", id],
     queryFn: () => typeApi.getByID(id),
-    onSuccess: (data) => setData(data),
+
+    onError: (error) => {
+      if (error) {
+        if (axios.isAxiosError(error)) {
+          toast.error(error?.response?.data.errors.message[0]);
+        } else {
+          console.log(error);
+        }
+      }
+    },
   });
 
   return (
@@ -99,6 +109,18 @@ const StationDetail = () => {
           </div>
         </div>
       </Box>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          className: "",
+          style: {
+            border: "0.2px solid #7367F0",
+            padding: "8px",
+            color: "#7367F0",
+          },
+        }}
+      />
     </div>
   );
 };

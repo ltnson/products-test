@@ -1,9 +1,13 @@
-import { AppBar, Button, TextField, Toolbar, Typography } from "@mui/material";
-import test from "../../assets/test.svg";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { AppBar, Button, TextField, Toolbar, Typography } from "@mui/material";
+import glass from "../../assets/glass.svg";
 
 const ListTop = ({ onSearch }: { onSearch: (value: string) => void }) => {
   const [searchKey, setSearchKey] = useState<string>("");
+  const navigate = useNavigate();
+
   return (
     <AppBar position="static" color="transparent">
       <Toolbar>
@@ -14,12 +18,14 @@ const ListTop = ({ onSearch }: { onSearch: (value: string) => void }) => {
             onChange={(e) => setSearchKey(e.target.value)}
           />
           <Button className="button-1" onClick={() => onSearch(searchKey)}>
-            <img src={test} className="w-4 h-4 mr-4" alt="React logo" />
+            <img src={glass} className="w-4 h-4 mr-4" alt="React logo" />
             Stations
           </Button>
         </Typography>
         <Typography component="div">
-          <Button className="button-2">+ Add Station</Button>
+          <Button className="button-2" onClick={() => navigate("/add-product")}>
+            + Add Station
+          </Button>
         </Typography>
       </Toolbar>
     </AppBar>

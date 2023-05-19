@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   AppBar,
   Avatar,
@@ -8,11 +11,17 @@ import {
   IconButton,
 } from "@mui/material";
 import { Dehaze } from "@mui/icons-material";
-import { useState } from "react";
 
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openMenu = Boolean(anchorEl);
+  const navigate = useNavigate();
+
+  const handleGoProducts = () => {
+    setAnchorEl(null);
+    navigate("/");
+  };
+
   return (
     <div>
       <AppBar position="static" color="transparent">
@@ -36,9 +45,9 @@ const NavBar = () => {
               MenuListProps={{ "aria-labelledby": "programs-menu" }}
               onClose={() => setAnchorEl(null)}
             >
+              <MenuItem onClick={handleGoProducts}>Products</MenuItem>
               <MenuItem onClick={() => setAnchorEl(null)}>Blog</MenuItem>
               <MenuItem onClick={() => setAnchorEl(null)}>Potcats</MenuItem>
-              <MenuItem onClick={() => setAnchorEl(null)}>Some else</MenuItem>
             </Menu>
             Programs
           </Typography>
@@ -46,12 +55,12 @@ const NavBar = () => {
             <div className="flex items-center">
               <div>
                 <p
-                  className="text-end text-sm font-medium"
+                  className="text-end text-sm font-semibold"
                   style={{ color: "#004744" }}
                 >
                   Sam Rabera
                 </p>
-                <p className="text-end text-sm text-slate-400 m-0">
+                <p className="text-end text-sm text-slate-500 m-0">
                   Oraganisation Name
                 </p>
               </div>

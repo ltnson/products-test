@@ -1,3 +1,5 @@
+import { Products } from "../../types/types";
+
 import {
   TableContainer,
   Table,
@@ -8,9 +10,6 @@ import {
   Paper,
   Box,
 } from "@mui/material";
-
-import { Products } from "../../types/types";
-
 import ItemProduct from "./ItemProduct";
 
 const ListBody = ({ items }: { items: Products[] }) => {
@@ -27,7 +26,7 @@ const ListBody = ({ items }: { items: Products[] }) => {
               <TableCell>Name</TableCell>
               <TableCell>Description</TableCell>
               <TableCell>State</TableCell>
-              <TableCell>Number Of Stations</TableCell>
+              <TableCell sx={{ width: "160px" }}>Number Of Stations</TableCell>
               <TableCell>Enable</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
