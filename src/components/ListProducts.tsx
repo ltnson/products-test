@@ -64,9 +64,9 @@ const ListProducts = () => {
       <div className="h-screen text-slate-500 text-sm">
         <ListTop onSearch={handleSearch} />
         {search.isLoading && (
-          <Typography variant="h6" className="mx-48">
-            Loading....
-          </Typography>
+          <div className="w-full h-96 flex justify-center items-center">
+            <Typography variant="h6">L o a d i n g . . . .</Typography>
+          </div>
         )}
         {search.data && <ListBody items={search.data?.products} />}
       </div>
@@ -77,9 +77,9 @@ const ListProducts = () => {
     <div className="h-screen text-slate-700 text-sm">
       <ListTop onSearch={handleSearch} />
       {products.isLoading && (
-        <Typography variant="h6" className="mx-48">
-          Loading....
-        </Typography>
+        <div className="w-full h-96 flex justify-center items-center">
+          <Typography variant="h1">L o a d i n g . . . .</Typography>
+        </div>
       )}
       {products.data && <ListBody items={products.data?.products} />}
       {products.data && (

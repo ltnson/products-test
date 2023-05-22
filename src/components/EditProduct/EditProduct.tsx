@@ -88,7 +88,7 @@ const EditProduct = ({
       className="w-full h-screen z-20 top-0 left-0 fixed flex justify-end"
       style={{ background: "rgba(0,0,0,0.4)" }}
     >
-      <form className="h-full bg-white w-2/6">
+      <form className="h-full overflow-auto  bg-white w-2/6">
         <Toolbar>
           <Typography
             component="div"

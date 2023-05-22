@@ -15,7 +15,7 @@ const StationDetail = ({
   onSetEdit: VoidFnt;
   id: string;
 }) => {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["product", id],
     queryFn: () => typeApi.getByID(id),
     onError: (error) => {
@@ -31,10 +31,15 @@ const StationDetail = ({
 
   return (
     <div
-      className="w-full  z-20 top-0 left-0 fixed flex justify-end"
+      className="w-full h-screen  z-20 top-0 left-0 fixed flex justify-end"
       style={{ background: "rgba(0,0,0,0.4)" }}
     >
-      <div className="min-h-screen bg-white w-2/6 text-zinc-600 overscroll-auto hover:overscroll-contain ">
+      <div className="h-full overflow-auto bg-white w-2/6 text-zinc-600 overscroll-auto hover:overscroll-contain ">
+        {isLoading && (
+          <div className="w-full h-96 flex justify-center items-center">
+            <Typography variant="h3">L o a d i n g . . . .</Typography>
+          </div>
+        )}
         <Box className="block bg-white rounded-md p-10">
           <Toolbar>
             <Typography
