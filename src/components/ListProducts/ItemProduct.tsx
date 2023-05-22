@@ -60,11 +60,11 @@ const ItemProduct = ({ item }: { item: any }) => {
           <DeleteUi id={item.id as number} onSetHidden={handleSetHidden} />
         )}
         {hideEdit && (
-          <EditProduct id={String(item.id)} onSetHidden={handleSetEditHidden} />
+          <EditProduct editProd={item} onSetHidden={handleSetEditHidden} />
         )}
         {hideView && (
           <StationDetail
-            id={String(item.id)}
+            viewProd={item}
             onSetHidden={handleSetViewHidden}
             onSetEdit={handleGoEdit}
           />

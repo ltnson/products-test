@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { Product, FormData, VoidFnt } from "../../types/types";
 
-import { useQuery, useMutation } from "react-query";
+import { useMutation } from "react-query";
 import typeApi from "../../APIs/typeApi";
 import axios from "axios";
 
@@ -26,50 +26,36 @@ const schema = yup.object({
 });
 
 const EditProduct = ({
-  id,
+  editProd,
   onSetHidden,
 }: {
-  id: string;
+  editProd: Product;
   onSetHidden: VoidFnt;
 }) => {
-  const product = useQuery({
-    queryKey: ["product", id],
-    queryFn: () => typeApi.getByID(id),
-    onError: (error) => {
-      if (error) {
-        if (axios.isAxiosError(error)) {
-          toast.error(error?.response?.data.message);
-        } else {
-          console.log(error);
-        }
-      }
-    },
-  });
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
-
+    defaultValues: {
+      title: editProd.title,
+      description: editProd.description,
+    },
     mode: "onBlur",
   });
 
   const { data, error, mutate } = useMutation((data: Product) =>
-    typeApi.updateByID(id, data)
+    typeApi.updateByID(editProd.id, data)
   );
 
   const onSubmit = (formData: FormData) => {
-    if (product.data) {
-      product.data.title = formData.title;
-      product.data.description = formData.description;
-      return mutate(product.data);
-    }
+    editProd.title = formData.title;
+    editProd.description = formData.description;
+    return mutate(editProd);
   };
 
   useEffect(() => {
-    product;
     if (data) {
       toast.success("updated product");
       onSetHidden();
@@ -114,44 +100,41 @@ const EditProduct = ({
             </Button>
           </Typography>
         </Toolbar>
-        {product.data && (
-          <div className="px-8">
-            {errors.description && (
-              <p className="block w-full bg-red-50 border border-red-500 p-2 mb-4 text-red-400 rounded-md">
-                {errors.description?.message}
-              </p>
-            )}
-            {errors.title && (
-              <p className="block w-full bg-red-50 border border-red-500 p-2 mb-4 text-red-400 rounded-md">
-                {errors.title?.message}
-              </p>
-            )}
-            <Typography
-              className="bg-zinc-200 p-2 rounded-t-md "
-              sx={{ fontWeight: "bold" }}
-            >
-              Title
-            </Typography>
-            <TextareaAutosize
-              minRows={1}
-              defaultValue={product.data.title}
-              className="w-full bg-zinc-200 p-2 mb-8 rounded-b-md"
-              {...register("title")}
-            />
-            <Typography
-              sx={{ fontWeight: "bold" }}
-              className="bg-zinc-200 p-2 rounded-t-md"
-            >
-              Description
-            </Typography>
-            <TextareaAutosize
-              minRows={4}
-              defaultValue={product.data.description}
-              className="w-full bg-zinc-200 p-2 mb-8 rounded-b-md"
-              {...register("description")}
-            />
-          </div>
-        )}
+
+        <div className="px-8">
+          {errors.description && (
+            <p className="block w-full bg-red-50 border border-red-500 p-2 mb-4 text-red-400 rounded-md">
+              {errors.description?.message}
+            </p>
+          )}
+          {errors.title && (
+            <p className="block w-full bg-red-50 border border-red-500 p-2 mb-4 text-red-400 rounded-md">
+              {errors.title?.message}
+            </p>
+          )}
+          <Typography
+            className="bg-zinc-200 p-2 rounded-t-md "
+            sx={{ fontWeight: "bold" }}
+          >
+            Title
+          </Typography>
+          <TextareaAutosize
+            minRows={1}
+            className="w-full bg-zinc-200 p-2 mb-8 rounded-b-md"
+            {...register("title")}
+          />
+          <Typography
+            sx={{ fontWeight: "bold" }}
+            className="bg-zinc-200 p-2 rounded-t-md"
+          >
+            Description
+          </Typography>
+          <TextareaAutosize
+            minRows={4}
+            className="w-full bg-zinc-200 p-2 mb-8 rounded-b-md"
+            {...register("description")}
+          />
+        </div>
       </form>
       <Toaster
         position="top-right"

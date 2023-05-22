@@ -1,45 +1,26 @@
-import { useQuery } from "react-query";
-import typeApi from "../../APIs/typeApi";
-import toast, { Toaster } from "react-hot-toast";
-import axios from "axios";
-
 import { Typography, Toolbar, Button, CardMedia, Box } from "@mui/material";
-import { VoidFnt } from "../../types/types";
+import { Product, VoidFnt } from "../../types/types";
 
 const StationDetail = ({
   onSetHidden,
   onSetEdit,
-  id,
+  viewProd,
 }: {
   onSetHidden: VoidFnt;
   onSetEdit: VoidFnt;
-  id: string;
+  viewProd: Product;
 }) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["product", id],
-    queryFn: () => typeApi.getByID(id),
-    onError: (error) => {
-      if (error) {
-        if (axios.isAxiosError(error)) {
-          toast.error(error?.response?.data.errors.message);
-        } else {
-          console.log(error);
-        }
-      }
-    },
-  });
-
   return (
     <div
       className="w-full h-screen  z-20 top-0 left-0 fixed flex justify-end"
       style={{ background: "rgba(0,0,0,0.4)" }}
     >
       <div className="h-full overflow-auto bg-white w-2/6 text-zinc-600 overscroll-auto hover:overscroll-contain ">
-        {isLoading && (
+        {/* {isLoading && (
           <div className="w-full h-96 flex justify-center items-center">
             <Typography variant="h3">L o a d i n g . . . .</Typography>
           </div>
-        )}
+        )} */}
         <Box className="block bg-white rounded-md p-10">
           <Toolbar>
             <Typography
@@ -65,12 +46,12 @@ const StationDetail = ({
             sx={{ borderRadius: "10px" }}
             component="img"
             height="140"
-            src={data && data?.images[0]}
+            src={viewProd.images[0]}
           />
 
           <div className="flex flex-col gap-2 mt-4">
             <Typography variant="h6" sx={{ color: "black" }}>
-              {data && data?.title}
+              {viewProd.title}
             </Typography>
             <Typography>Last update 24/07/2022 11:35:37</Typography>
             <Typography>Last ET update 24/07/2022 11:35:37</Typography>
@@ -133,18 +114,6 @@ const StationDetail = ({
             </div>
           </div>
         </Box>
-        <Toaster
-          position="top-right"
-          reverseOrder={false}
-          toastOptions={{
-            className: "",
-            style: {
-              border: "0.2px solid #7367F0",
-              padding: "8px",
-              color: "#7367F0",
-            },
-          }}
-        />
       </div>
     </div>
   );

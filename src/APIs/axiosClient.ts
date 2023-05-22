@@ -12,17 +12,6 @@ const axiosClient = {
       throw error;
     }
   },
-  getByID: async (params: string) => {
-    try {
-      const response = await axios.get(
-        `https://dummyjson.com/products/${params}`
-      );
-      const jsonData = response.data;
-      return jsonData;
-    } catch (error) {
-      throw error;
-    }
-  },
   getSearch: async (searchKey: string) => {
     return axios
       .get(`https://dummyjson.com/products/search?${searchKey}`)
@@ -44,7 +33,7 @@ const axiosClient = {
     }
   },
 
-  updateByID: async (id: string, payload: any) => {
+  updateByID: async (id: number, payload: any) => {
     try {
       const response = await axios.put(`https://dummyjson.com/products/${id}`, {
         headers: { "Content-Type": "application/json" },
@@ -68,6 +57,17 @@ const axiosClient = {
       throw err;
     }
   },
+  // getByID: async (params: string) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://dummyjson.com/products/${params}`
+  //     );
+  //     const jsonData = response.data;
+  //     return jsonData;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // },
 };
 
 export default axiosClient;
