@@ -1,28 +1,28 @@
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { VoidFnt } from "../../types/types";
 
 import { TableRow, TableCell, Button, Stack, Switch } from "@mui/material";
 import DeleteUi from "./DeleteUi";
-import { useState } from "react";
+import EditProduct from "../EditProduct/EditProduct";
+import StationDetail from "../stationDetail/StationDetail";
 
-const ItemProduct = ({
-  item,
-  onlyDelUI,
-  onSetOnly,
-}: {
-  item: any;
-  onlyDelUI: Boolean;
-  onSetOnly: any;
-}) => {
-  const navigate = useNavigate();
-
+const ItemProduct = ({ item }: { item: any }) => {
   const [hidden, setHidden] = useState<Boolean>(false);
+  const [hideView, setHideView] = useState<Boolean>(false);
+  const [hideEdit, setHideEdit] = useState<Boolean>(false);
 
-  const handleSetHidden = (value: Boolean) => {
-    if (onlyDelUI && value === true) {
-      return;
-    }
-    onSetOnly();
-    setHidden(value);
+  const handleSetHidden: VoidFnt = () => {
+    setHidden(!hidden);
+  };
+  const handleSetEditHidden: VoidFnt = () => {
+    setHideEdit(!hideEdit);
+  };
+  const handleSetViewHidden: VoidFnt = () => {
+    setHideView(!hideView);
+  };
+  const handleGoEdit: VoidFnt = () => {
+    setHideView(!hideView);
+    setHideEdit(!hideEdit);
   };
 
   return (
@@ -35,29 +35,39 @@ const ItemProduct = ({
       <TableCell>
         <Switch />
       </TableCell>
-      <TableCell className="relative">
+      <TableCell>
         <Stack direction="row">
           <Button
             sx={{ color: "#004744", paddingLeft: "0" }}
-            onClick={() => navigate(`/station-detail/${item.id}`)}
+            onClick={() => handleSetViewHidden()}
           >
             VIEW
           </Button>
           <Button
             sx={{ color: "#004744", paddingLeft: "0" }}
-            onClick={() => navigate(`/edit-product/${item.id}`)}
+            onClick={() => handleSetEditHidden()}
           >
             EDIT
           </Button>
           <Button
             sx={{ color: "#7C7B7B", paddingLeft: "0" }}
-            onClick={() => handleSetHidden(!hidden)}
+            onClick={() => handleSetHidden()}
           >
             DELETE
           </Button>
         </Stack>
         {hidden && (
           <DeleteUi id={item.id as number} onSetHidden={handleSetHidden} />
+        )}
+        {hideEdit && (
+          <EditProduct id={String(item.id)} onSetHidden={handleSetEditHidden} />
+        )}
+        {hideView && (
+          <StationDetail
+            id={String(item.id)}
+            onSetHidden={handleSetViewHidden}
+            onSetEdit={handleGoEdit}
+          />
         )}
       </TableCell>
     </TableRow>

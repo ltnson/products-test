@@ -1,40 +1,46 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
 import { AppBar, Button, TextField, Toolbar, Typography } from "@mui/material";
 import glass from "../../assets/glass.svg";
+import AddProduct from "../addProduct/AddProduct";
 
-const ListTop = ({ onSearch }: { onSearch: (value: string) => void }) => {
+const ListTop = ({ onSearch }: { onSearch: any }) => {
   const [searchKey, setSearchKey] = useState<string>("");
-  const navigate = useNavigate();
-  const onSubmit = (e: any) => {
-    e.preventDefalut();
-    onSearch(searchKey);
+  const [hideAdd, setHideAdd] = useState<Boolean>(false);
+  const onSubmitSearch = () => {
+    if (searchKey) {
+      onSearch(searchKey);
+    }
+  };
+  const handleSetAddHidden = () => {
+    setHideAdd(!hideAdd);
   };
 
   return (
-    <AppBar position="static" color="transparent">
-      <Toolbar>
-        <Typography component="div">
-          <form onSubmit={onSubmit}>
-            <TextField
-              placeholder="Search Programs"
-              size="small"
-              onChange={(e) => setSearchKey(e.target.value)}
-            />
-            <Button className="button-1">
-              <img src={glass} className="w-4 h-4 mr-4" alt="React logo" />
-              Stations
+    <>
+      {hideAdd && <AddProduct onSetHidden={handleSetAddHidden} />}
+      <AppBar position="static" color="transparent">
+        <Toolbar>
+          <Typography component="div">
+            <div>
+              <TextField
+                placeholder="Search Programs"
+                size="small"
+                onChange={(e) => setSearchKey(e.target.value)}
+              />
+              <Button className="button-1" onClick={onSubmitSearch}>
+                <img src={glass} className="w-4 h-4 mr-4" alt="React logo" />
+                Stations
+              </Button>
+            </div>
+          </Typography>
+          <Typography component="div">
+            <Button className="button-2" onClick={() => handleSetAddHidden()}>
+              + Add Station
             </Button>
-          </form>
-        </Typography>
-        <Typography component="div">
-          <Button className="button-2" onClick={() => navigate("/add-product")}>
-            + Add Station
-          </Button>
-        </Typography>
-      </Toolbar>
-    </AppBar>
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </>
   );
 };
 

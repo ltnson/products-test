@@ -1,6 +1,6 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-import { Product, FormData } from "../../types/types";
+import { Product, FormData, VoidFnt } from "../../types/types";
 
 import { useQuery, useMutation } from "react-query";
 import typeApi from "../../APIs/typeApi";
@@ -25,17 +25,20 @@ const schema = yup.object({
     .min(20, "Description is too short"),
 });
 
-const EditProduct = () => {
-  const { id } = useParams() as { id: string };
-  const navigate = useNavigate();
-
-  const { data } = useQuery({
+const EditProduct = ({
+  id,
+  onSetHidden,
+}: {
+  id: string;
+  onSetHidden: VoidFnt;
+}) => {
+  const product = useQuery({
     queryKey: ["product", id],
     queryFn: () => typeApi.getByID(id),
     onError: (error) => {
       if (error) {
         if (axios.isAxiosError(error)) {
-          toast.error(error?.response?.data.errors.message[0]);
+          toast.error(error?.response?.data.message);
         } else {
           console.log(error);
         }
@@ -49,106 +52,106 @@ const EditProduct = () => {
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
-
     mode: "onBlur",
   });
 
-  const updateProduct = useMutation((data: Product) =>
+  const { data, error, mutate } = useMutation((data: Product) =>
     typeApi.updateByID(id, data)
   );
 
   const onSubmit = (formData: FormData) => {
-    if (data) {
-      data.title = formData.title;
-      data.description = formData.description;
-      console.log(data);
-      updateProduct
-        .mutateAsync(data)
-        .then(() => {
-          if (updateProduct.error) {
-            if (axios.isAxiosError(updateProduct.error)) {
-              toast.error(
-                updateProduct.error?.response?.data.errors.message[0]
-              );
-            } else {
-              console.log(updateProduct.error);
-            }
-          }
-        })
-        .then(() => {
-          navigate("/");
-        });
+    if (product.data) {
+      product.data.title = formData.title;
+      product.data.description = formData.description;
+      return mutate(product.data);
     }
   };
 
+  useEffect(() => {
+    product;
+    if (data) {
+      toast.success("updated product");
+      onSetHidden();
+    }
+    if (error) {
+      console.log(error);
+      if (axios.isAxiosError(error)) {
+        toast.error(error?.response?.data.message);
+      } else {
+        console.log(error);
+      }
+    }
+  }, [data, error]);
+
   return (
-    <div className="bg-zinc-200 px-96 py-10">
-      <div className="block w-[44rem] bg-white h-screen rounded-md p-10 h-full">
-        <form>
-          <Toolbar>
-            <Typography
-              component="div"
-              sx={{ fontSize: "18px", fontWeight: "500" }}
+    <div
+      className="w-full h-screen z-20 top-0 left-0 fixed flex justify-end"
+      style={{ background: "rgba(0,0,0,0.4)" }}
+    >
+      <form className="h-full bg-white w-2/6">
+        <Toolbar>
+          <Typography
+            component="div"
+            sx={{ fontSize: "18px", fontWeight: "500" }}
+          >
+            Edit Station
+          </Typography>
+          <Typography component="div">
+            <Button
+              className="button-1"
+              sx={{ marginRight: "16px" }}
+              onClick={() => onSetHidden()}
             >
-              Edit Station
+              Cancel
+            </Button>
+            <Button
+              className="button-2"
+              type="submit"
+              onClick={handleSubmit(onSubmit)}
+            >
+              Save
+            </Button>
+          </Typography>
+        </Toolbar>
+        {product.data && (
+          <div className="px-8">
+            {errors.description && (
+              <p className="block w-full bg-red-50 border border-red-500 p-2 mb-4 text-red-400 rounded-md">
+                {errors.description?.message}
+              </p>
+            )}
+            {errors.title && (
+              <p className="block w-full bg-red-50 border border-red-500 p-2 mb-4 text-red-400 rounded-md">
+                {errors.title?.message}
+              </p>
+            )}
+            <Typography
+              className="bg-zinc-200 p-2 rounded-t-md "
+              sx={{ fontWeight: "bold" }}
+            >
+              Title
             </Typography>
-            <Typography component="div">
-              <Button
-                className="button-1"
-                sx={{ marginRight: "16px" }}
-                onClick={() => navigate("/")}
-              >
-                Cancel
-              </Button>
-              <Button
-                className="button-2"
-                type="submit"
-                onClick={handleSubmit(onSubmit)}
-              >
-                Save
-              </Button>
+            <TextareaAutosize
+              minRows={1}
+              defaultValue={product.data.title}
+              className="w-full bg-zinc-200 p-2 mb-8 rounded-b-md"
+              {...register("title")}
+            />
+            <Typography
+              sx={{ fontWeight: "bold" }}
+              className="bg-zinc-200 p-2 rounded-t-md"
+            >
+              Description
             </Typography>
-          </Toolbar>
-          {data && (
-            <div className="px-8">
-              {errors.description && (
-                <p className="block w-full bg-red-50 border border-red-500 p-2 mb-4 text-red-400 rounded-md">
-                  {errors.description?.message}
-                </p>
-              )}
-              {errors.title && (
-                <p className="block w-full bg-red-50 border border-red-500 p-2 mb-4 text-red-400 rounded-md">
-                  {errors.title?.message}
-                </p>
-              )}
-              <Typography
-                className="bg-zinc-200 p-2 rounded-t-md "
-                sx={{ fontWeight: "bold" }}
-              >
-                Title
-              </Typography>
-              <TextareaAutosize
-                minRows={1}
-                defaultValue={data.title}
-                className="w-full bg-zinc-200 p-2 mb-8 rounded-b-md"
-                {...register("title")}
-              />
-              <Typography
-                sx={{ fontWeight: "bold" }}
-                className="bg-zinc-200 p-2 rounded-t-md"
-              >
-                Description
-              </Typography>
-              <TextareaAutosize
-                minRows={4}
-                defaultValue={data.description}
-                className="w-full bg-zinc-200 p-2 mb-8 rounded-b-md"
-                {...register("description")}
-              />
-            </div>
-          )}
-        </form>
-      </div>
+            <TextareaAutosize
+              minRows={4}
+              defaultValue={product.data.description}
+              className="w-full bg-zinc-200 p-2 mb-8 rounded-b-md"
+              {...register("description")}
+            />
+          </div>
+        )}
+      </form>
       <Toaster
         position="top-right"
         reverseOrder={false}

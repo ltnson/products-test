@@ -3,28 +3,43 @@ import toast, { Toaster } from "react-hot-toast";
 import typeApi from "../../APIs/typeApi";
 import { useMutation } from "react-query";
 import { Button } from "@mui/material";
+import { useEffect } from "react";
+import { VoidFnt } from "../../types/types";
 
-const DeleteUi = ({ id, onSetHidden }: { id: number; onSetHidden: any }) => {
-  const deleteProduct = useMutation((id: number) => typeApi.deleteByID(id));
+const DeleteUi = ({
+  id,
+  onSetHidden,
+}: {
+  id: number;
+  onSetHidden: VoidFnt;
+}) => {
+  const { data, error, mutate } = useMutation((id: number) =>
+    typeApi.deleteByID(id)
+  );
   const handleDelete = () => {
-    deleteProduct
-      .mutateAsync(id)
-      .then(() => {
-        if (deleteProduct.error) {
-          if (axios.isAxiosError(deleteProduct.error)) {
-            toast.error(deleteProduct.error?.response?.data.errors.message[0]);
-          } else {
-            console.log(deleteProduct.error);
-          }
-        }
-      })
-      .then(() => {
-        onSetHidden(false);
-      });
+    return mutate(id);
   };
+  useEffect(() => {
+    if (data) {
+      toast.success("deleted product");
+      onSetHidden();
+    }
+    if (error) {
+      console.log(error);
+      if (axios.isAxiosError(error)) {
+        toast.error(error?.response?.data.message);
+      } else {
+        console.log(error);
+      }
+    }
+  }, [data, error]);
+
   return (
-    <>
-      <div className="absolute w-96 h-64 bg-white z-20 rounded-md top-10 right-10 shadow-2xl">
+    <div
+      className="w-full h-screen z-20 top-0 left-0 fixed flex justify-center items-center"
+      style={{ background: "rgba(0,0,0,0.4)" }}
+    >
+      <div className="w-96 h-60 bg-white z-20 rounded-md top-10 right-10">
         <div className="grid grid-rows-3 px-10">
           <h4 className="text-2xl font-simebold mt-10">Delete Station?</h4>
           <p className="mt-2">
@@ -32,7 +47,7 @@ const DeleteUi = ({ id, onSetHidden }: { id: number; onSetHidden: any }) => {
             deleted.
           </p>
           <div className="flex justify-end gap-8 mt-10">
-            <Button className="button-1" onClick={() => onSetHidden(false)}>
+            <Button className="button-1" onClick={() => onSetHidden()}>
               Cancel
             </Button>
             <Button className="button-2" onClick={handleDelete}>
@@ -53,7 +68,7 @@ const DeleteUi = ({ id, onSetHidden }: { id: number; onSetHidden: any }) => {
           },
         }}
       />
-    </>
+    </div>
   );
 };
 

@@ -113,6 +113,9 @@ const theme = createTheme({
           "&:nth-of-type(even)": {
             backgroundColor: "rgba(123, 123, 123, 0.05)",
           },
+          "&:nth-chill(odd)": {
+            backgroundColor: "#FFFFFF",
+          },
         },
       },
     },

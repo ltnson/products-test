@@ -20,7 +20,7 @@ import ListBody from "./ListProducts/ListBody";
 const ListProducts = () => {
   const [limit, setLimit] = useState<number>(5);
   const [skip, setSkip] = useState<number>(0);
-  const [key, setKey] = useState<string>("");
+  const [searchKey, setSearchKey] = useState<string>("");
   const buttons = [1, 2, 3, 4, 5, 6];
 
   const products = useQuery({
@@ -29,7 +29,7 @@ const ListProducts = () => {
     onError: (error) => {
       if (error) {
         if (axios.isAxiosError(error)) {
-          toast.error(error?.response?.data.errors.message[0]);
+          toast.error(error?.response?.data.message);
         } else {
           console.log(error);
         }
@@ -37,49 +37,45 @@ const ListProducts = () => {
     },
   });
 
-  const search = useQuery({
-    queryKey: ["search", key],
-    queryFn: () => typeApi.getSearch(key),
-  });
-
-  const handleSearchKey = (searchKey: string) => {
-    if (searchKey !== "") {
-      setKey("q=" + searchKey);
-    }
-    return;
+  const handleSearch = (value: string) => {
+    setSearchKey("q=" + value);
   };
 
-  function scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }
+  const search = useQuery({
+    queryKey: ["search", searchKey],
+    queryFn: () => typeApi.getSearch(searchKey),
+    onError: (error) => {
+      if (error) {
+        if (axios.isAxiosError(error)) {
+          toast.error(error?.response?.data.message);
+        } else {
+          console.log(error);
+        }
+      }
+    },
+  });
 
   const handleGoPageNumb = (value: number) => {
     setSkip(value);
-    scrollToTop();
   };
 
   if (search?.data && search.data.products.length > 0) {
     return (
       <div className="h-screen text-slate-500 text-sm">
-        <ListTop onSearch={handleSearchKey} />
+        <ListTop onSearch={handleSearch} />
         {search.isLoading && (
           <Typography variant="h6" className="mx-48">
             Loading....
           </Typography>
         )}
         {search.data && <ListBody items={search.data?.products} />}
-        <Button className="button-1" sx={{ margin: "20px 0 100px 50px" }}>
-          Back to Products
-        </Button>
       </div>
     );
   }
+
   return (
     <div className="h-screen text-slate-700 text-sm">
-      <ListTop onSearch={handleSearchKey} />
+      <ListTop onSearch={handleSearch} />
       {products.isLoading && (
         <Typography variant="h6" className="mx-48">
           Loading....
