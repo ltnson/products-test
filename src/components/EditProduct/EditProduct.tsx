@@ -17,7 +17,7 @@ const schema = yup.object({
   title: yup
     .string()
     .required("Title is required")
-    .min(3, "Title is too short"),
+    .min(9, "Title is too short"),
 
   description: yup
     .string()
@@ -52,6 +52,7 @@ const EditProduct = ({
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
+
     mode: "onBlur",
   });
 
