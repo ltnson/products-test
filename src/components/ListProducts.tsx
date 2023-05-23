@@ -63,7 +63,7 @@ const ListProducts = () => {
         <ListTop onSearch={handleSearch} />
         {search.isLoading && (
           <div className="w-full h-96 flex justify-center items-center">
-            <CircularProgress style={{ width: '80px', height: '80px' }} />
+            <CircularProgress style={{ width: '120px', height: '120px' }} />
           </div>
         )}
         {search.data && <ListBody items={search.data?.products} />}
@@ -75,14 +75,14 @@ const ListProducts = () => {
         <ListTop onSearch={handleSearch} />
         {products.isLoading && (
           <div className="w-full h-96 flex justify-center items-center">
-            <CircularProgress style={{ width: '80px', height: '80px' }} />
+            <CircularProgress style={{ width: '120px', height: '120px' }} />
           </div>
         )}
         {products.data && <ListBody items={products.data?.products} />}
         {products.data && (
           <div className="grow flex justify-between mx-6 h-full items-end py-8">
             <Typography>
-              Showing {skip > 0 ? skip / limit + 1 : 1} to {Math.ceil(products.data?.limit / 30)} of{' '}
+              Showing {skip > 0 ? skip / limit + 1 : 1} to {Math.ceil(products.data?.total / products.data?.limit)} of{' '}
               {products.data?.total} entries
             </Typography>
             <Typography component="div" sx={{ display: 'flex' }}>
