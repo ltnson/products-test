@@ -1,16 +1,8 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import {
-  AppBar,
-  Avatar,
-  Toolbar,
-  Typography,
-  Menu,
-  MenuItem,
-  IconButton,
-} from "@mui/material";
-import { Dehaze } from "@mui/icons-material";
+import { AppBar, Avatar, Toolbar, Typography, Menu, MenuItem, IconButton } from '@mui/material';
+import { Dehaze } from '@mui/icons-material';
 
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -19,22 +11,21 @@ const NavBar = () => {
 
   const handleGoProducts = () => {
     setAnchorEl(null);
-    navigate("/");
+    navigate('/');
   };
 
   return (
-    <div>
+    <div className="h-16">
       <AppBar position="static" color="transparent">
         <Toolbar>
           <Typography variant="h6" component="div">
             <IconButton
+              sx={{ borderRadius: '8px' }}
               id="programs"
-              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-                setAnchorEl(e.currentTarget)
-              }
-              aria-controls={openMenu ? "programs-menu" : undefined}
+              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => setAnchorEl(e.currentTarget)}
+              aria-controls={openMenu ? 'programs-menu' : undefined}
               aria-haspopup={true}
-              arira-aria-expanded={openMenu ? "true" : undefined}
+              arira-aria-expanded={openMenu ? 'true' : undefined}
             >
               <Dehaze />
             </IconButton>
@@ -42,7 +33,7 @@ const NavBar = () => {
               id="programs-menu"
               anchorEl={anchorEl}
               open={openMenu}
-              MenuListProps={{ "aria-labelledby": "programs-menu" }}
+              MenuListProps={{ 'aria-labelledby': 'programs-menu' }}
               onClose={() => setAnchorEl(null)}
             >
               <MenuItem onClick={handleGoProducts}>Products</MenuItem>
@@ -54,15 +45,10 @@ const NavBar = () => {
           <Typography component="div">
             <div className="flex items-center">
               <div>
-                <p
-                  className="text-end text-sm font-semibold"
-                  style={{ color: "#004744" }}
-                >
+                <p className="text-end text-sm font-semibold" style={{ color: '#004744' }}>
                   Sam Rabera
                 </p>
-                <p className="text-end text-sm text-slate-500 m-0">
-                  Oraganisation Name
-                </p>
+                <p className="text-end text-sm text-slate-500 m-0">Oraganisation Name</p>
               </div>
               <Avatar></Avatar>
             </div>

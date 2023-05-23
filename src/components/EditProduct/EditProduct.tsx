@@ -1,37 +1,25 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { Product, FormData, VoidFnt } from "../../types/types";
+import { Product, FormData, VoidFnt } from '../../types/types';
 
-import { useMutation } from "react-query";
-import typeApi from "../../APIs/typeApi";
-import axios from "axios";
+import { useMutation } from 'react-query';
+import typeApi from '../../APIs/typeApi';
+import axios from 'axios';
 
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import toast, { Toaster } from "react-hot-toast";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import toast, { Toaster } from 'react-hot-toast';
 
-import { Button, TextareaAutosize, Toolbar, Typography } from "@mui/material";
+import { Button, TextareaAutosize, Toolbar, Typography } from '@mui/material';
 
 const schema = yup.object({
-  title: yup
-    .string()
-    .required("Title is required")
-    .min(9, "Title is too short"),
+  title: yup.string().required('Title is required').min(9, 'Title is too short'),
 
-  description: yup
-    .string()
-    .required("Description is required")
-    .min(20, "Description is too short"),
+  description: yup.string().required('Description is required').min(20, 'Description is too short'),
 });
 
-const EditProduct = ({
-  editProd,
-  onSetHidden,
-}: {
-  editProd: Product;
-  onSetHidden: VoidFnt;
-}) => {
+const EditProduct = ({ editProd, onSetHidden }: { editProd: Product; onSetHidden: VoidFnt }) => {
   const {
     register,
     handleSubmit,
@@ -42,12 +30,10 @@ const EditProduct = ({
       title: editProd.title,
       description: editProd.description,
     },
-    mode: "onBlur",
+    mode: 'onBlur',
   });
 
-  const { data, error, mutate } = useMutation((data: Product) =>
-    typeApi.updateByID(editProd.id, data)
-  );
+  const { data, error, mutate } = useMutation((data: Product) => typeApi.updateByID(editProd.id, data));
 
   const onSubmit = (formData: FormData) => {
     editProd.title = formData.title;
@@ -57,7 +43,7 @@ const EditProduct = ({
 
   useEffect(() => {
     if (data) {
-      toast.success("updated product");
+      toast.success('updated product');
       onSetHidden();
     }
     if (error) {
@@ -71,31 +57,17 @@ const EditProduct = ({
   }, [data, error]);
 
   return (
-    <div
-      className="w-full h-screen z-20 top-0 left-0 fixed flex justify-end"
-      style={{ background: "rgba(0,0,0,0.4)" }}
-    >
+    <div className="w-full h-screen z-20 top-0 left-0 fixed flex justify-end" style={{ background: 'rgba(0,0,0,0.4)' }}>
       <form className="h-full overflow-auto  bg-white w-2/6">
         <Toolbar>
-          <Typography
-            component="div"
-            sx={{ fontSize: "18px", fontWeight: "500" }}
-          >
+          <Typography component="div" sx={{ fontSize: '18px', fontWeight: '500' }}>
             Edit Station
           </Typography>
           <Typography component="div">
-            <Button
-              className="button-1"
-              sx={{ marginRight: "16px" }}
-              onClick={() => onSetHidden()}
-            >
+            <Button className="button-1" sx={{ marginRight: '16px' }} onClick={() => onSetHidden()}>
               Cancel
             </Button>
-            <Button
-              className="button-2"
-              type="submit"
-              onClick={handleSubmit(onSubmit)}
-            >
+            <Button className="button-2" type="submit" onClick={handleSubmit(onSubmit)}>
               Save
             </Button>
           </Typography>
@@ -112,27 +84,17 @@ const EditProduct = ({
               {errors.title?.message}
             </p>
           )}
-          <Typography
-            className="bg-zinc-200 p-2 rounded-t-md "
-            sx={{ fontWeight: "bold" }}
-          >
+          <Typography className="bg-zinc-200 p-2 rounded-t-md " sx={{ fontWeight: 'bold' }}>
             Title
           </Typography>
-          <TextareaAutosize
-            minRows={1}
-            className="w-full bg-zinc-200 p-2 mb-8 rounded-b-md"
-            {...register("title")}
-          />
-          <Typography
-            sx={{ fontWeight: "bold" }}
-            className="bg-zinc-200 p-2 rounded-t-md"
-          >
+          <TextareaAutosize minRows={1} className="w-full bg-zinc-200 p-2 mb-8 rounded-b-md" {...register('title')} />
+          <Typography sx={{ fontWeight: 'bold' }} className="bg-zinc-200 p-2 rounded-t-md">
             Description
           </Typography>
           <TextareaAutosize
             minRows={4}
             className="w-full bg-zinc-200 p-2 mb-8 rounded-b-md"
-            {...register("description")}
+            {...register('description')}
           />
         </div>
       </form>
@@ -140,11 +102,11 @@ const EditProduct = ({
         position="top-right"
         reverseOrder={false}
         toastOptions={{
-          className: "",
+          className: '',
           style: {
-            border: "0.2px solid #7367F0",
-            padding: "8px",
-            color: "#7367F0",
+            border: '0.2px solid #7367F0',
+            padding: '8px',
+            color: '#7367F0',
           },
         }}
       />

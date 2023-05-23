@@ -1,10 +1,12 @@
-import axios from "axios";
+import axios from 'axios';
+
+const APP_URL = import.meta.env.VITE_REACT_APP_URL;
 
 const axiosClient = {
   getLimit: async (limit: number, skip: number) => {
     try {
       const response = await axios.get(
-        `https://dummyjson.com/products?limit=${limit}&skip=${skip}&select=title,description,stoct,category,price,discountPercentage,rating,band,thumbnail,images`
+        `${APP_URL}?limit=${limit}&skip=${skip}&select=title,description,stoct,category,price,discountPercentage,rating,band,thumbnail,images`,
       );
       const jsonData = response.data;
       return jsonData;
@@ -14,7 +16,7 @@ const axiosClient = {
   },
   getSearch: async (searchKey: string) => {
     return axios
-      .get(`https://dummyjson.com/products/search?${searchKey}`)
+      .get(`${APP_URL}/search?${searchKey}`)
       .then((response) => response.data)
       .catch((err) => {
         throw err;
@@ -23,9 +25,7 @@ const axiosClient = {
 
   deleteByID: async (id: number) => {
     try {
-      const response = await axios.delete(
-        `https://dummyjson.com/products/${id}`
-      );
+      const response = await axios.delete(`${APP_URL}/${id}`);
       const jsonData = response.data;
       return jsonData;
     } catch (err) {
@@ -35,8 +35,8 @@ const axiosClient = {
 
   updateByID: async (id: number, payload: any) => {
     try {
-      const response = await axios.put(`https://dummyjson.com/products/${id}`, {
-        headers: { "Content-Type": "application/json" },
+      const response = await axios.put(`${APP_URL}/${id}`, {
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
       const jsonData = response.data;
@@ -47,8 +47,8 @@ const axiosClient = {
   },
   addOne: async (payload: any) => {
     try {
-      const response = await axios.post("https://dummyjson.com/products/add", {
-        headers: { "Content-Type": "application/json" },
+      const response = await axios.post(`${APP_URL}/add`, {
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
       const jsonData = response.data;
@@ -57,17 +57,6 @@ const axiosClient = {
       throw err;
     }
   },
-  // getByID: async (params: string) => {
-  //   try {
-  //     const response = await axios.get(
-  //       `https://dummyjson.com/products/${params}`
-  //     );
-  //     const jsonData = response.data;
-  //     return jsonData;
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // },
 };
 
 export default axiosClient;

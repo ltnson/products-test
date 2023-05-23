@@ -60,6 +60,12 @@ const theme = createTheme({
             backgroundColor: "rgb(255 247 237)",
             color: "rgb(249 115 22)",
           },
+          "&.button-5": {
+            backgroundColor: "#004744",
+            color: "white",
+            border: "1px black solid",
+            with: "30px",
+          },
         },
       },
     },
@@ -119,28 +125,6 @@ const theme = createTheme({
         },
       },
     },
-    MuiSwitch: {
-      styleOverrides: {
-        root: {
-          color: "default",
-        },
-        track: {
-          height: "20px",
-          width: "80px",
-          borderRadius: "40px",
-          background: "#004744",
-          // transition: "background-color 0.3s ease",
-          // "&:hover": {
-          //   background: "rgba(4, 71, 68, 0.2)",
-          // },
-        },
-        thumb: {
-          marginTop: "6px",
-          height: "14px",
-          width: "14px",
-        },
-      },
-    },
     MuiMenuItem: {
       styleOverrides: {
         root: {
@@ -161,6 +145,14 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           "&hover": "red",
+        },
+      },
+    },
+    MuiTableContainer: {
+      styleOverrides: {
+        root: {
+          margin: "0 20px",
+          marginRight: "20px",
         },
       },
     },

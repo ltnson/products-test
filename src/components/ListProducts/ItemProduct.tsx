@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { VoidFnt } from "../../types/types";
+import { useState } from 'react';
+import { VoidFnt } from '../../types/types';
 
-import { TableRow, TableCell, Button, Stack, Switch } from "@mui/material";
-import DeleteUi from "./DeleteUi";
-import EditProduct from "../EditProduct/EditProduct";
-import StationDetail from "../stationDetail/StationDetail";
+import { TableRow, TableCell, Button, Stack } from '@mui/material';
+import DeleteUi from './DeleteUi';
+import EditProduct from '../EditProduct/EditProduct';
+import StationDetail from '../stationDetail/StationDetail';
+import Switch from '../../assets/Switch';
 
 const ItemProduct = ({ item }: { item: any }) => {
   const [hidden, setHidden] = useState<Boolean>(false);
@@ -37,38 +38,19 @@ const ItemProduct = ({ item }: { item: any }) => {
       </TableCell>
       <TableCell>
         <Stack direction="row">
-          <Button
-            sx={{ color: "#004744", paddingLeft: "0" }}
-            onClick={() => handleSetViewHidden()}
-          >
+          <Button sx={{ color: '#004744', paddingLeft: '0' }} onClick={() => handleSetViewHidden()}>
             VIEW
           </Button>
-          <Button
-            sx={{ color: "#004744", paddingLeft: "0" }}
-            onClick={() => handleSetEditHidden()}
-          >
+          <Button sx={{ color: '#004744', paddingLeft: '0' }} onClick={() => handleSetEditHidden()}>
             EDIT
           </Button>
-          <Button
-            sx={{ color: "#7C7B7B", paddingLeft: "0" }}
-            onClick={() => handleSetHidden()}
-          >
+          <Button sx={{ color: '#7C7B7B', paddingLeft: '0' }} onClick={() => handleSetHidden()}>
             DELETE
           </Button>
         </Stack>
-        {hidden && (
-          <DeleteUi id={item.id as number} onSetHidden={handleSetHidden} />
-        )}
-        {hideEdit && (
-          <EditProduct editProd={item} onSetHidden={handleSetEditHidden} />
-        )}
-        {hideView && (
-          <StationDetail
-            viewProd={item}
-            onSetHidden={handleSetViewHidden}
-            onSetEdit={handleGoEdit}
-          />
-        )}
+        {hidden && <DeleteUi id={item.id as number} onSetHidden={handleSetHidden} />}
+        {hideEdit && <EditProduct editProd={item} onSetHidden={handleSetEditHidden} />}
+        {hideView && <StationDetail viewProd={item} onSetHidden={handleSetViewHidden} onSetEdit={handleGoEdit} />}
       </TableCell>
     </TableRow>
   );

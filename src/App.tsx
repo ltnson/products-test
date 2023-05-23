@@ -1,11 +1,11 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from 'react-router-dom';
 
-import ListProducts from "./components/ListProducts";
-import NavBar from "./components/NavBar";
+import ListProducts from './components/ListProducts';
+import NavBar from './components/NavBar';
 
 function App() {
   return (
-    <div className="bg-white">
+    <div className="bg-white h-screen ">
       <NavBar />
       <Routes>
         <Route path="/" element={<Navigate to="/products" />} />
