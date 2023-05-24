@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const APP_URL = import.meta.env.VITE_REACT_APP_URL;
+// const APP_URL = import.meta.env.VITE_REACT_APP_URL;
+const APP_URL = 'https://dummyjson.com/products';
 
 const axiosClient = {
   getLimit: async (limit: number, skip: number) => {
