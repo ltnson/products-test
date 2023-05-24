@@ -31,7 +31,7 @@ const DeleteUi = ({ id, onSetHidden }: { id: number; onSetHidden: VoidFnt }) => 
       className="w-full h-screen z-20 top-0 left-0 fixed flex justify-center items-center"
       style={{ background: 'rgba(0,0,0,0.4)' }}
     >
-      <div className="w-96 h-60 bg-white z-20 rounded-md top-10 right-10">
+      <div className="w-96 h-60 bg-white z-20 rounded-md top-10 right-10 max-[400px]:w-full">
         <div className="grid grid-rows-3 px-10">
           <h4 className="text-2xl font-simebold mt-10">Delete Station?</h4>
           <p className="mt-2">This action is not reversible, all child-organisation data will be deleted.</p>

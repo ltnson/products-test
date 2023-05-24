@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { VoidFnt } from '../../types/types';
 
-import { TableRow, TableCell, Button, Stack } from '@mui/material';
+import { TableRow, TableCell, Button } from '@mui/material';
 import DeleteUi from './DeleteUi';
 import EditProduct from '../EditProduct/EditProduct';
 import StationDetail from '../stationDetail/StationDetail';
@@ -37,7 +37,7 @@ const ItemProduct = ({ item }: { item: any }) => {
         <Switch />
       </TableCell>
       <TableCell>
-        <Stack direction="row">
+        <div className="flex md:max-lg:flex-col max-[400px]:flex-col">
           <Button sx={{ color: '#004744', paddingLeft: '0' }} onClick={() => handleSetViewHidden()}>
             VIEW
           </Button>
@@ -47,7 +47,7 @@ const ItemProduct = ({ item }: { item: any }) => {
           <Button sx={{ color: '#7C7B7B', paddingLeft: '0' }} onClick={() => handleSetHidden()}>
             DELETE
           </Button>
-        </Stack>
+        </div>
         {hidden && <DeleteUi id={item.id as number} onSetHidden={handleSetHidden} />}
         {hideEdit && <EditProduct editProd={item} onSetHidden={handleSetEditHidden} />}
         {hideView && <StationDetail viewProd={item} onSetHidden={handleSetViewHidden} onSetEdit={handleGoEdit} />}

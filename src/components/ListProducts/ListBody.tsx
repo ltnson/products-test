@@ -1,12 +1,25 @@
 import { Products } from '../../types/types';
 
-import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, Box } from '@mui/material';
+import {
+  TableContainer,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  Paper,
+  Box,
+} from '@mui/material';
 import ItemProduct from './ItemProduct';
 
 const ListBody = ({ items }: { items: Products[] }) => {
   return (
-    <div className="flex-none">
-      <Box sx={{ width: '97%' }}>
+    <div className="flex-none max-[400px]:w-full ">
+      <Box
+        sx={{
+          width: '97%',
+        }}
+      >
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
             <TableHead>
@@ -15,7 +28,9 @@ const ListBody = ({ items }: { items: Products[] }) => {
                 <TableCell>Name</TableCell>
                 <TableCell>Description</TableCell>
                 <TableCell>State</TableCell>
-                <TableCell sx={{ width: '160px' }}>Number Of Stations</TableCell>
+                <TableCell sx={{ width: '160px' }}>
+                  Number Of Stations
+                </TableCell>
                 <TableCell>Enable</TableCell>
                 <TableCell>Actions</TableCell>
               </TableRow>

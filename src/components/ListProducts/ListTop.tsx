@@ -14,7 +14,17 @@ const ListTop = ({ onSearch }: { onSearch: any }) => {
     <div className="flex-none">
       {hideAdd && <AddProduct onSetHidden={handleSetAddHidden} />}
 
-      <Toolbar>
+      <Toolbar
+        sx={{
+          '@media (max-width: 400px)': {
+            display: 'flex',
+            flexDirection: 'column-reverse',
+            gap: '10px',
+            margin: '10px 0',
+            alignItems: 'flex-start',
+          },
+        }}
+      >
         <Typography component="div">
           <div>
             <TextField placeholder="Search Programs" size="small" onChange={(e) => onSearch(e.target.value)} />

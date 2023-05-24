@@ -5,7 +5,14 @@ import typeApi from '../APIs/typeApi';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 
-import { Button, ButtonGroup, Typography, MenuItem, Select, CircularProgress } from '@mui/material';
+import {
+  Button,
+  ButtonGroup,
+  Typography,
+  MenuItem,
+  Select,
+  CircularProgress,
+} from '@mui/material';
 
 import ListTop from './ListProducts/ListTop';
 import ListBody from './ListProducts/ListBody';
@@ -71,7 +78,7 @@ const ListProducts = () => {
     );
   } else if (searchKey === 'no' || products) {
     return (
-      <div className="min-h-[90%] text-slate-700 text-sm flex flex-col w-full px-4">
+      <div className="min-h-[90%] text-slate-700 text-sm flex flex-col w-full px-4 max-[400px]:px-0 md:p-1">
         <ListTop onSearch={handleSearch} />
         {products.isLoading && (
           <div className="w-full h-96 flex justify-center items-center">
@@ -80,12 +87,23 @@ const ListProducts = () => {
         )}
         {products.data && <ListBody items={products.data?.products} />}
         {products.data && (
-          <div className="grow flex justify-between mx-6 h-full items-end py-8">
+          <div className="grow flex justify-between mx-6 h-full items-end py-8 md:flex-col md:items-center md:gap-4 md:justify-end max-[400px]:flex-col max-[400px]:items-center max-[400px]:gap-4 max-[768px]:flex-col max-[768px]:items-center">
             <Typography>
-              Showing {skip > 0 ? skip / limit + 1 : 1} to {Math.ceil(products.data?.total / products.data?.limit)} of{' '}
+              Showing {skip > 0 ? skip / limit + 1 : 1} to{' '}
+              {Math.ceil(products.data?.total / products.data?.limit)} of{' '}
               {products.data?.total} entries
             </Typography>
-            <Typography component="div" sx={{ display: 'flex' }}>
+            <Typography
+              component="div"
+              sx={{
+                display: 'flex',
+                '@media (max-width: 400px)': {
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '16px',
+                },
+              }}
+            >
               <Select
                 value={limit}
                 sx={{
@@ -101,7 +119,12 @@ const ListProducts = () => {
               </Select>
 
               <ButtonGroup color="inherit" size="small">
-                <Button onClick={() => handleGoPageNumb(skip > 0 ? skip - limit : skip)} sx={{ borderRadius: '0' }}>
+                <Button
+                  onClick={() =>
+                    handleGoPageNumb(skip > 0 ? skip - limit : skip)
+                  }
+                  sx={{ borderRadius: '0' }}
+                >
                   Previous
                 </Button>
                 {buttons.map((i) => (
@@ -109,12 +132,21 @@ const ListProducts = () => {
                     key={i}
                     onClick={() => handleGoPageNumb(limit * i - limit)}
                     className={skip === i * limit - limit ? 'button-5' : 'w-4'}
+                    sx={{
+                      '@media (max-width: 400px)': {
+                        display: 'none',
+                      },
+                    }}
                   >
                     {i}
                   </Button>
                 ))}
                 <Button
-                  onClick={() => handleGoPageNumb(skip < products.data?.total ? skip + limit : skip)}
+                  onClick={() =>
+                    handleGoPageNumb(
+                      skip < products.data?.total ? skip + limit : skip,
+                    )
+                  }
                   sx={{ borderRadius: '0' }}
                 >
                   Next

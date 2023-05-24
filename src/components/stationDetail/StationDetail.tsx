@@ -1,5 +1,5 @@
-import { Typography, Toolbar, Button, CardMedia, Box } from "@mui/material";
-import { Product, VoidFnt } from "../../types/types";
+import { Typography, Toolbar, Button, CardMedia, Box } from '@mui/material';
+import { Product, VoidFnt } from '../../types/types';
 
 const StationDetail = ({
   onSetHidden,
@@ -12,29 +12,36 @@ const StationDetail = ({
 }) => {
   return (
     <div
-      className="w-full h-screen  z-20 top-0 left-0 fixed flex justify-end"
-      style={{ background: "rgba(0,0,0,0.4)" }}
+      className="w-full h-full z-20 top-0 left-0 fixed flex justify-end md:justify-center max-[400px]:justify-center"
+      style={{ background: 'rgba(0,0,0,0.4)' }}
     >
-      <div className="h-full overflow-auto bg-white w-2/6 text-zinc-600 overscroll-auto hover:overscroll-contain ">
+      <div className="h-full overflow-auto  bg-white w-96 md:m-28 md:h-auto sm:w-full max-[400px]:w-full">
         {/* {isLoading && (
           <div className="w-full h-96 flex justify-center items-center">
             <Typography variant="h3">L o a d i n g . . . .</Typography>
           </div>
         )} */}
-        <Box className="block bg-white rounded-md p-10">
-          <Toolbar>
-            <Typography
-              component="div"
-              sx={{ fontSize: "20px", fontWeight: "500" }}
-            >
+        <Box className="block bg-white rounded-md p-10 max-[400px]:p-6">
+          <Toolbar
+            sx={{
+              '@media (max-width: 400px)': {
+                padding: '0',
+              },
+            }}
+          >
+            <Typography component="div" sx={{ fontSize: '20px', fontWeight: '500' }}>
               Station Detail
             </Typography>
-            <Typography component="div">
-              <Button
-                className="button-1"
-                sx={{ marginRight: "16px" }}
-                onClick={() => onSetHidden()}
-              >
+            <Typography
+              component="div"
+              sx={{
+                '@media (max-width: 400px)': {
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                },
+              }}
+            >
+              <Button className="button-1" sx={{ marginRight: '16px' }} onClick={() => onSetHidden()}>
                 Close
               </Button>
               <Button className="button-2" onClick={() => onSetEdit()}>
@@ -42,21 +49,16 @@ const StationDetail = ({
               </Button>
             </Typography>
           </Toolbar>
-          <CardMedia
-            sx={{ borderRadius: "10px" }}
-            component="img"
-            height="140"
-            src={viewProd.images[0]}
-          />
+          <CardMedia sx={{ borderRadius: '10px' }} component="img" height="140" src={viewProd.images[0]} />
 
           <div className="flex flex-col gap-2 mt-4">
-            <Typography variant="h6" sx={{ color: "black" }}>
+            <Typography variant="h6" sx={{ color: 'black' }}>
               {viewProd.title}
             </Typography>
             <Typography>Last update 24/07/2022 11:35:37</Typography>
             <Typography>Last ET update 24/07/2022 11:35:37</Typography>
           </div>
-          <div className="flex gap-4 py-6 border-b border-zinc-400">
+          <div className="flex gap-4 py-6 border-b border-zinc-400 max-[400px]:gap-1">
             <Button className="button-1" fullWidth>
               On
             </Button>

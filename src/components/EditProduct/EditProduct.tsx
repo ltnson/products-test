@@ -57,8 +57,11 @@ const EditProduct = ({ editProd, onSetHidden }: { editProd: Product; onSetHidden
   }, [data, error]);
 
   return (
-    <div className="w-full h-screen z-20 top-0 left-0 fixed flex justify-end" style={{ background: 'rgba(0,0,0,0.4)' }}>
-      <form className="h-full overflow-auto  bg-white w-2/6">
+    <div
+      className="w-full h-full z-20 top-0 left-0 fixed flex justify-end md:justify-center sm:justify-center"
+      style={{ background: 'rgba(0,0,0,0.4)' }}
+    >
+      <form className="h-full overflow-auto  bg-white w-96 md:m-28 md:h-auto max-[400px]:w-full">
         <Toolbar>
           <Typography component="div" sx={{ fontSize: '18px', fontWeight: '500' }}>
             Edit Station
