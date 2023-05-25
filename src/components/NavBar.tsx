@@ -1,7 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { AppBar, Avatar, Toolbar, Typography, Menu, MenuItem, IconButton } from '@mui/material';
+import {
+  AppBar,
+  Avatar,
+  Toolbar,
+  Typography,
+  Menu,
+  MenuItem,
+  IconButton,
+} from '@mui/material';
 import { Dehaze } from '@mui/icons-material';
 
 const NavBar = () => {
@@ -15,23 +23,23 @@ const NavBar = () => {
   };
 
   return (
-    <div className="h-16 max-[400px]:my-6 max-[400px]:h-auto">
+    <div className="h-16 max-[420px]:my-6 max-[420px]:h-auto bg-white">
       <AppBar position="static" color="transparent">
-        <Toolbar>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{
-              '@media (max-width: 400px)': {
-                display: 'flex',
-                flexDirection: 'column',
-              },
-            }}
-          >
+        <Toolbar
+          sx={{
+            '@media (max-width: 420px)': {
+              padding: '0 ',
+              paddingBottom: '16px',
+            },
+          }}
+        >
+          <Typography variant="h6" component="div">
             <IconButton
               sx={{ borderRadius: '8px', width: '40px', height: '40px' }}
               id="programs"
-              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => setAnchorEl(e.currentTarget)}
+              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+                setAnchorEl(e.currentTarget)
+              }
               aria-controls={openMenu ? 'programs-menu' : undefined}
               aria-haspopup={true}
               arira-aria-expanded={openMenu ? 'true' : undefined}
@@ -52,12 +60,17 @@ const NavBar = () => {
             Programs
           </Typography>
           <Typography component="div">
-            <div className="flex items-center   max-[400px]:mb-2">
+            <div className="flex items-center ">
               <div>
-                <p className="text-end text-sm font-semibold" style={{ color: '#004744' }}>
+                <p
+                  className="text-end text-sm font-semibold"
+                  style={{ color: '#004744' }}
+                >
                   Sam Rabera
                 </p>
-                <p className="text-end text-sm text-slate-500 m-0">Oraganisation Name</p>
+                <p className="text-end text-sm text-slate-500 m-0">
+                  Oraganisation Name
+                </p>
               </div>
               <Avatar></Avatar>
             </div>

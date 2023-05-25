@@ -1,5 +1,5 @@
 import axiosClient from './axiosClient';
-import { DataProducts, DummyData, Product } from '../types/types';
+import { DataProducts, DummyData, Product } from '../models/types';
 
 const typeApi = {
   getLimit(limit: number, skip: number): Promise<DataProducts> {

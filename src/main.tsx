@@ -6,7 +6,7 @@ import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import { ThemeProvider } from '@mui/material';
-import theme from './MUIthemeCSS.ts';
+import theme from './theme/MUIthemeCSS.ts';
 import 'typeface-exo';
 const queryClient = new QueryClient();
 

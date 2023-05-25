@@ -155,6 +155,15 @@ const theme = createTheme({
         },
       },
     },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          '@media (max-width: 420px)': {
+            padding: '2px',
+          },
+        },
+      },
+    },
   },
 });
 

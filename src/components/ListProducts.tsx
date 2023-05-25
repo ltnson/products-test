@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useQuery } from 'react-query';
-import typeApi from '../APIs/typeApi';
+import typeApi from '../api/typeApi';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -70,7 +70,12 @@ const ListProducts = () => {
         <ListTop onSearch={handleSearch} />
         {search.isLoading && (
           <div className="w-full h-96 flex justify-center items-center">
-            <CircularProgress style={{ width: '120px', height: '120px' }} />
+            <CircularProgress
+              style={{
+                width: '120px',
+                height: '120px',
+              }}
+            />
           </div>
         )}
         {search.data && <ListBody items={search.data?.products} />}
@@ -78,16 +83,25 @@ const ListProducts = () => {
     );
   } else if (searchKey === 'no' || products) {
     return (
-      <div className="min-h-[90%] text-slate-700 text-sm flex flex-col w-full px-4 max-[400px]:px-0 md:p-1">
+      <div className="min-h-[90%] text-slate-700 text-sm flex flex-col w-full px-4 max-[420px]:px-0 md:p-1">
         <ListTop onSearch={handleSearch} />
         {products.isLoading && (
           <div className="w-full h-96 flex justify-center items-center">
-            <CircularProgress style={{ width: '120px', height: '120px' }} />
+            <CircularProgress
+              style={{
+                width: '120px',
+                height: '120px',
+              }}
+            />
           </div>
         )}
         {products.data && <ListBody items={products.data?.products} />}
         {products.data && (
-          <div className="grow flex justify-between mx-6 h-full items-end py-8 md:flex-col md:items-center md:gap-4 md:justify-end max-[400px]:flex-col max-[400px]:items-center max-[400px]:gap-4 max-[768px]:flex-col max-[768px]:items-center">
+          <div
+            className="grow flex justify-between mx-6 h-full items-end py-8 md:flex-col md:items-center
+                       md:gap-4 md:justify-end max-[420px]:flex-col max-[420px]:items-center max-[420px]
+                       :gap-4 max-[768px]:flex-col max-[768px]:items-center"
+          >
             <Typography>
               Showing {skip > 0 ? skip / limit + 1 : 1} to{' '}
               {Math.ceil(products.data?.total / products.data?.limit)} of{' '}
@@ -97,11 +111,6 @@ const ListProducts = () => {
               component="div"
               sx={{
                 display: 'flex',
-                '@media (max-width: 400px)': {
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: '16px',
-                },
               }}
             >
               <Select
@@ -123,9 +132,26 @@ const ListProducts = () => {
                   onClick={() =>
                     handleGoPageNumb(skip > 0 ? skip - limit : skip)
                   }
-                  sx={{ borderRadius: '0' }}
+                  sx={{
+                    borderRadius: '0',
+                  }}
                 >
                   Previous
+                </Button>
+                <Button
+                  disabled
+                  sx={{
+                    display: 'none',
+                    '@media (max-width: 420px)': {
+                      display: 'block',
+                      backgroundColor: '#004744',
+                      border: '1px solid',
+                    },
+                  }}
+                >
+                  <p className="text-white">
+                    {skip > 0 ? skip / limit + 1 : 1}
+                  </p>
                 </Button>
                 {buttons.map((i) => (
                   <Button
@@ -133,7 +159,7 @@ const ListProducts = () => {
                     onClick={() => handleGoPageNumb(limit * i - limit)}
                     className={skip === i * limit - limit ? 'button-5' : 'w-4'}
                     sx={{
-                      '@media (max-width: 400px)': {
+                      '@media (max-width: 420px)': {
                         display: 'none',
                       },
                     }}
@@ -147,7 +173,9 @@ const ListProducts = () => {
                       skip < products.data?.total ? skip + limit : skip,
                     )
                   }
-                  sx={{ borderRadius: '0' }}
+                  sx={{
+                    borderRadius: '0',
+                  }}
                 >
                   Next
                 </Button>

@@ -21,7 +21,8 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
       color: '#fff',
       '& + .MuiSwitch-track': {
         opacity: 1,
-        backgroundColor: theme.palette.mode === 'dark' ? 'rgba(4, 71, 68, 0.2)' : '#004744',
+        backgroundColor:
+          theme.palette.mode === 'dark' ? 'rgba(4, 71, 68, 0.2)' : '#004744',
       },
     },
   },
@@ -37,11 +38,16 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-track': {
     borderRadius: 16 / 2,
     opacity: 1,
-    backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,.35)' : 'rgba(4, 71, 68, .3)',
+    backgroundColor:
+      theme.palette.mode === 'dark'
+        ? 'rgba(255,255,255,.35)'
+        : 'rgba(4, 71, 68, .3)',
     boxSizing: 'border-box',
   },
 }));
 
 export default function AntSwitches() {
-  return <AntSwitch defaultChecked inputProps={{ 'aria-label': 'ant design' }} />;
+  return (
+    <AntSwitch defaultChecked inputProps={{ 'aria-label': 'ant design' }} />
+  );
 }

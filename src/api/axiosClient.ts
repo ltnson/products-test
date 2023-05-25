@@ -1,13 +1,17 @@
 import axios from 'axios';
 
-// const APP_URL = import.meta.env.VITE_REACT_APP_URL;
-const APP_URL = 'https://dummyjson.com/products';
+const APP_URL = import.meta.env.VITE_REACT_APP_URL;
+const SEARCH_URL = import.meta.env.VITE_REACT_SEARCH_URL;
+const UPDATE_URL = import.meta.env.VITE_REACT_UPDATE_URL;
+const DELETE_URL = import.meta.env.VITE_REACT_DELETE_URL;
+const ADD_URL = import.meta.env.VITE_REACT_ADD_URL;
+const OPTION_PARAMS = import.meta.env.VITE_REACT_OPTION_PARAMS;
 
 const axiosClient = {
   getLimit: async (limit: number, skip: number) => {
     try {
       const response = await axios.get(
-        `${APP_URL}?limit=${limit}&skip=${skip}&select=title,description,stoct,category,price,discountPercentage,rating,band,thumbnail,images`,
+        `${APP_URL}?limit=${limit}&skip=${skip}&select=${OPTION_PARAMS}`,
       );
       const jsonData = response.data;
       return jsonData;
@@ -17,7 +21,7 @@ const axiosClient = {
   },
   getSearch: async (searchKey: string) => {
     return axios
-      .get(`${APP_URL}/search?${searchKey}`)
+      .get(`${SEARCH_URL}${searchKey}`)
       .then((response) => response.data)
       .catch((err) => {
         throw err;
@@ -26,7 +30,7 @@ const axiosClient = {
 
   deleteByID: async (id: number) => {
     try {
-      const response = await axios.delete(`${APP_URL}/${id}`);
+      const response = await axios.delete(`${DELETE_URL}${id}`);
       const jsonData = response.data;
       return jsonData;
     } catch (err) {
@@ -36,7 +40,7 @@ const axiosClient = {
 
   updateByID: async (id: number, payload: any) => {
     try {
-      const response = await axios.put(`${APP_URL}/${id}`, {
+      const response = await axios.put(`${UPDATE_URL}${id}`, {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
@@ -48,7 +52,7 @@ const axiosClient = {
   },
   addOne: async (payload: any) => {
     try {
-      const response = await axios.post(`${APP_URL}/add`, {
+      const response = await axios.post(`${ADD_URL}`, {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });

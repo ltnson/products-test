@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { VoidFnt } from '../../types/types';
+import { VoidFnt } from '../../models/types';
 
 import { TableRow, TableCell, Button } from '@mui/material';
-import DeleteUi from './DeleteUi';
+import DeleteUi from '../deleteUi/DeleteUi';
 import EditProduct from '../EditProduct/EditProduct';
 import StationDetail from '../stationDetail/StationDetail';
-import Switch from '../../assets/Switch';
+import Switch from '../../theme/Switch';
 
 const ItemProduct = ({ item }: { item: any }) => {
   const [hidden, setHidden] = useState<Boolean>(false);
@@ -30,27 +30,54 @@ const ItemProduct = ({ item }: { item: any }) => {
     <TableRow>
       <TableCell>{item.id}</TableCell>
       <TableCell>{item.title}</TableCell>
-      <TableCell>{item.description}</TableCell>
+      <TableCell
+        sx={{
+          '@media (max-width: 420px)': {
+            display: 'none',
+          },
+        }}
+      >
+        {item.description}
+      </TableCell>
       <TableCell>{item.rating}</TableCell>
       <TableCell>{item.category}</TableCell>
       <TableCell>
         <Switch />
       </TableCell>
       <TableCell>
-        <div className="flex md:max-lg:flex-col max-[400px]:flex-col">
-          <Button sx={{ color: '#004744', paddingLeft: '0' }} onClick={() => handleSetViewHidden()}>
+        <div className="flex md:max-lg:flex-col max-[765px]:flex-col">
+          <Button
+            sx={{ color: '#004744', paddingLeft: '0' }}
+            onClick={() => handleSetViewHidden()}
+          >
             VIEW
           </Button>
-          <Button sx={{ color: '#004744', paddingLeft: '0' }} onClick={() => handleSetEditHidden()}>
+          <Button
+            sx={{ color: '#004744', paddingLeft: '0' }}
+            onClick={() => handleSetEditHidden()}
+          >
             EDIT
           </Button>
-          <Button sx={{ color: '#7C7B7B', paddingLeft: '0' }} onClick={() => handleSetHidden()}>
+          <Button
+            sx={{ color: '#7C7B7B', paddingLeft: '0' }}
+            onClick={() => handleSetHidden()}
+          >
             DELETE
           </Button>
         </div>
-        {hidden && <DeleteUi id={item.id as number} onSetHidden={handleSetHidden} />}
-        {hideEdit && <EditProduct editProd={item} onSetHidden={handleSetEditHidden} />}
-        {hideView && <StationDetail viewProd={item} onSetHidden={handleSetViewHidden} onSetEdit={handleGoEdit} />}
+        {hidden && (
+          <DeleteUi id={item.id as number} onSetHidden={handleSetHidden} />
+        )}
+        {hideEdit && (
+          <EditProduct editProd={item} onSetHidden={handleSetEditHidden} />
+        )}
+        {hideView && (
+          <StationDetail
+            viewProd={item}
+            onSetHidden={handleSetViewHidden}
+            onSetEdit={handleGoEdit}
+          />
+        )}
       </TableCell>
     </TableRow>
   );

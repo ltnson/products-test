@@ -28,4 +28,4 @@ export type FormData = {
 
 export type VoidFnt = () => void;
 
-export type DummyData = Omit<Product, "id">;
+export type DummyData = Omit<Product, 'id'>;
