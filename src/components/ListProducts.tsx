@@ -98,9 +98,9 @@ const ListProducts = () => {
         {products.data && <ListBody items={products.data?.products} />}
         {products.data && (
           <div
-            className="grow flex justify-between mx-6 h-full items-end py-8  sm:flex-col 
-                       sm:justify-end sm:items-center sm:gap-4 max-[420px]:flex-col 
-                       max-[420px]:items-center max-[420px]:gap-4 max-[768px]:items-center">
+            className="grow flex justify-between mx-6 h-full items-end py-8           
+           max-[900px]:flex-col 
+          max-[900px]:items-center max-[900px]:gap-4 max-[900px]:justify-end">
             <Typography>
               Showing {skip > 0 ? skip / limit + 1 : 1} to{' '}
               {Math.ceil(products.data?.total / products.data?.limit)} of{' '}
