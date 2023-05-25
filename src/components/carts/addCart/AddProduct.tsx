@@ -1,23 +1,23 @@
-import {useEffect} from 'react';
+import {DummyData, FormData, VoidFnt} from '../../../models/types';
 
-import {Product, FormData, VoidFnt} from '../../models/types';
+import axios from 'axios';
+import toast, {Toaster} from 'react-hot-toast';
 
 import {useMutation} from 'react-query';
-import typeApi from '../../api/typeApi';
-import axios from 'axios';
 
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import toast, {Toaster} from 'react-hot-toast';
 
 import {Button, TextareaAutosize, Toolbar, Typography} from '@mui/material';
+import typeApi from '../../../api/typeApi';
+import {useEffect} from 'react';
 
 const schema = yup.object({
   title: yup
     .string()
     .required('Title is required')
-    .min(9, 'Title is too short'),
+    .min(5, 'Title is too short'),
 
   description: yup
     .string()
@@ -25,13 +25,20 @@ const schema = yup.object({
     .min(20, 'Description is too short'),
 });
 
-const EditProduct = ({
-  editProd,
-  onSetHidden,
-}: {
-  editProd: Product;
-  onSetHidden: VoidFnt;
-}) => {
+const AddProduct = ({onSetHidden}: {onSetHidden: VoidFnt}) => {
+  const dummyData: DummyData = {
+    title: '',
+    description: '',
+    price: 549,
+    discountPercentage: 12.96,
+    rating: 4.69,
+    stock: 94,
+    brand: 'Apple',
+    category: 'smartphones',
+    thumbnail: '...',
+    images: ['some string'],
+  };
+
   const {
     register,
     handleSubmit,
@@ -39,29 +46,29 @@ const EditProduct = ({
   } = useForm<FormData>({
     resolver: yupResolver(schema),
     defaultValues: {
-      title: editProd.title,
-      description: editProd.description,
+      title: '',
+      description: '',
     },
     mode: 'onBlur',
   });
 
-  const {data, error, mutate} = useMutation((data: Product) =>
-    typeApi.updateByID(editProd.id, data),
+  const {mutate, data, error} = useMutation((dummyData: DummyData) =>
+    typeApi.addOne(dummyData),
   );
 
   const onSubmit = (formData: FormData) => {
-    editProd.title = formData.title;
-    editProd.description = formData.description;
-    return mutate(editProd);
+    dummyData.title = formData.title;
+    dummyData.description = formData.description;
+    return mutate(dummyData);
   };
 
   useEffect(() => {
     if (data) {
-      toast.success('updated product');
+      console.log(data);
+      toast.success('added product');
       onSetHidden();
     }
     if (error) {
-      console.log(error);
       if (axios.isAxiosError(error)) {
         toast.error(error?.response?.data.message);
       } else {
@@ -72,8 +79,8 @@ const EditProduct = ({
 
   return (
     <div
-      className="w-full h-full z-20 top-0 left-0 fixed flex justify-end 
-                  md:justify-end max-[420px]:justify-center"
+      className="w-full h-full z-20 top-0 left-0 fixed flex justify-end
+                 md:justify-end max-[420px]:justify-center"
       style={{background: 'rgba(0,0,0,0.4)'}}>
       <form
         className="h-full overflow-auto  bg-white w-96 md:h-auto
@@ -82,7 +89,7 @@ const EditProduct = ({
           <Typography
             component="div"
             sx={{fontSize: '18px', fontWeight: '500'}}>
-            Edit Station
+            Add Station
           </Typography>
           <Typography component="div">
             <Button
@@ -99,15 +106,14 @@ const EditProduct = ({
             </Button>
           </Typography>
         </Toolbar>
-
         <div className="px-8">
           {errors.description && (
-            <p className="block w-full bg-red-50 border border-red-500 p-2 mb-4 text-red-400 rounded-md">
+            <p className="block w-full bg-red-50   p-2 mb-4 text-red-400 rounded-md">
               {errors.description?.message}
             </p>
           )}
           {errors.title && (
-            <p className="block w-full bg-red-50 border border-red-500 p-2 mb-4 text-red-400 rounded-md">
+            <p className="block w-full bg-red-50   p-2 mb-4 text-red-400 rounded-md">
               {errors.title?.message}
             </p>
           )}
@@ -118,6 +124,7 @@ const EditProduct = ({
           </Typography>
           <TextareaAutosize
             minRows={1}
+            defaultValue="test"
             className="w-full bg-zinc-200 p-2 mb-8 rounded-b-md"
             {...register('title')}
           />
@@ -149,4 +156,4 @@ const EditProduct = ({
   );
 };
 
-export default EditProduct;
+export default AddProduct;

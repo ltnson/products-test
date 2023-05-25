@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {Button, TextField, Toolbar, Typography} from '@mui/material';
-import AddProduct from '../addProduct/AddProduct';
-import IconGlass from '../../theme/IconGlass';
+import AddProduct from '../../carts/addCart/AddProduct';
+import IconGlass from '../../../theme/IconGlass';
 
 const ListTop = ({onSearch}: {onSearch: any}) => {
   const [hideAdd, setHideAdd] = useState<Boolean>(false);

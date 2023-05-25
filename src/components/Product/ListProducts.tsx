@@ -1,7 +1,7 @@
 import {useState} from 'react';
 
 import {useQuery} from 'react-query';
-import typeApi from '../api/typeApi';
+import typeApi from '../../api/typeApi';
 import axios from 'axios';
 import toast, {Toaster} from 'react-hot-toast';
 
@@ -14,8 +14,8 @@ import {
   CircularProgress,
 } from '@mui/material';
 
-import ListTop from '../Product/ListProducts/ListTop';
-import ListBody from '../Product/ListProducts/ListBody';
+import ListTop from './topProduct/ListTop';
+import ListBody from './bodyProduct/ListBody';
 
 const ListProducts = () => {
   const [limit, setLimit] = useState<number>(5);

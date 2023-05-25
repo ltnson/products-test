@@ -1,5 +1,5 @@
 import {Typography, Toolbar, Button, CardMedia, Box} from '@mui/material';
-import {Product, VoidFnt} from '../../models/types';
+import {Product, VoidFnt} from '../../../models/types';
 
 const StationDetail = ({
   onSetHidden,

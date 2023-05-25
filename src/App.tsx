@@ -1,7 +1,7 @@
 import {Routes, Route, Navigate} from 'react-router-dom';
 
-import ListProducts from './components/ListProducts';
-import NavBar from './components/NavBar';
+import ListProducts from './components/Product/ListProducts';
+import NavBar from './components/Navbar/NavBar';
 
 function App() {
   return (

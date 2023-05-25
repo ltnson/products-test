@@ -1,11 +1,11 @@
 import {useState} from 'react';
-import {VoidFnt} from '../../models/types';
+import {VoidFnt} from '../../../models/types';
 
 import {TableRow, TableCell, Button} from '@mui/material';
-import DeleteUi from '../deleteProduct/DeleteUi';
-import EditProduct from '../EditProduct/EditProduct';
-import StationDetail from '../viewProduct/StationDetail';
-import Switch from '../../theme/Switch';
+import DeleteUi from '../../carts/deleteCart/DeleteUi';
+import EditProduct from '../../carts/EditCart/EditProduct';
+import StationDetail from '../../carts/viewCart/StationDetail';
+import Switch from '../../../theme/Switch';
 
 const ItemProduct = ({item}: {item: any}) => {
   const [hidden, setHidden] = useState<Boolean>(false);

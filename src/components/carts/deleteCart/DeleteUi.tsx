@@ -1,10 +1,10 @@
 import axios from 'axios';
 import toast, {Toaster} from 'react-hot-toast';
-import typeApi from '../../api/typeApi';
+import typeApi from '../../../api/typeApi';
 import {useMutation} from 'react-query';
 import {Button} from '@mui/material';
 import {useEffect} from 'react';
-import {VoidFnt} from '../../models/types';
+import {VoidFnt} from '../../../models/types';
 
 const DeleteUi = ({id, onSetHidden}: {id: number; onSetHidden: VoidFnt}) => {
   const {data, error, mutate} = useMutation((id: number) =>

@@ -1,4 +1,4 @@
-import {Products} from '../../models/types';
+import {Products} from '../../../models/types';
 
 import {
   TableContainer,
@@ -9,7 +9,7 @@ import {
   TableCell,
   Paper,
 } from '@mui/material';
-import ItemProduct from './ItemProduct';
+import ItemProduct from '../item/ItemProduct';
 
 const ListBody = ({items}: {items: Products[]}) => {
   return (
