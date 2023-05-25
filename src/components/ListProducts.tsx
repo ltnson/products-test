@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import {useState} from 'react';
 
-import { useQuery } from 'react-query';
+import {useQuery} from 'react-query';
 import typeApi from '../api/typeApi';
 import axios from 'axios';
-import toast, { Toaster } from 'react-hot-toast';
+import toast, {Toaster} from 'react-hot-toast';
 
 import {
   Button,
@@ -14,8 +14,8 @@ import {
   CircularProgress,
 } from '@mui/material';
 
-import ListTop from './ListProducts/ListTop';
-import ListBody from './ListProducts/ListBody';
+import ListTop from '../Product/ListProducts/ListTop';
+import ListBody from '../Product/ListProducts/ListBody';
 
 const ListProducts = () => {
   const [limit, setLimit] = useState<number>(5);
@@ -98,10 +98,9 @@ const ListProducts = () => {
         {products.data && <ListBody items={products.data?.products} />}
         {products.data && (
           <div
-            className="grow flex justify-between mx-6 h-full items-end py-8 md:flex-col md:items-center
-                       md:gap-4 md:justify-end max-[420px]:flex-col max-[420px]:items-center max-[420px]
-                       :gap-4 max-[768px]:flex-col max-[768px]:items-center"
-          >
+            className="grow flex justify-between mx-6 h-full items-end py-8  sm:flex-col 
+                       sm:justify-end sm:items-center sm:gap-4 max-[420px]:flex-col 
+                       max-[420px]:items-center max-[420px]:gap-4 max-[768px]:items-center">
             <Typography>
               Showing {skip > 0 ? skip / limit + 1 : 1} to{' '}
               {Math.ceil(products.data?.total / products.data?.limit)} of{' '}
@@ -111,18 +110,17 @@ const ListProducts = () => {
               component="div"
               sx={{
                 display: 'flex',
-              }}
-            >
+                justifyContent: 'space-around',
+                gap: '20px',
+              }}>
               <Select
                 value={limit}
                 sx={{
                   width: '130px',
                   borderRadius: '0',
-                  margin: '0 20px',
                   border: '1px solid black',
                 }}
-                onChange={(e) => setLimit(e.target.value as number)}
-              >
+                onChange={(e) => setLimit(e.target.value as number)}>
                 <MenuItem value={10}>10 per page</MenuItem>
                 <MenuItem value={5}>5 per page</MenuItem>
               </Select>
@@ -134,8 +132,7 @@ const ListProducts = () => {
                   }
                   sx={{
                     borderRadius: '0',
-                  }}
-                >
+                  }}>
                   Previous
                 </Button>
                 <Button
@@ -147,8 +144,7 @@ const ListProducts = () => {
                       backgroundColor: '#004744',
                       border: '1px solid',
                     },
-                  }}
-                >
+                  }}>
                   <p className="text-white">
                     {skip > 0 ? skip / limit + 1 : 1}
                   </p>
@@ -162,8 +158,7 @@ const ListProducts = () => {
                       '@media (max-width: 420px)': {
                         display: 'none',
                       },
-                    }}
-                  >
+                    }}>
                     {i}
                   </Button>
                 ))}
@@ -175,8 +170,7 @@ const ListProducts = () => {
                   }
                   sx={{
                     borderRadius: '0',
-                  }}
-                >
+                  }}>
                   Next
                 </Button>
               </ButtonGroup>

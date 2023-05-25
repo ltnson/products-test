@@ -1,4 +1,4 @@
-import { Products } from '../../models/types';
+import {Products} from '../../models/types';
 
 import {
   TableContainer,
@@ -11,10 +11,14 @@ import {
 } from '@mui/material';
 import ItemProduct from './ItemProduct';
 
-const ListBody = ({ items }: { items: Products[] }) => {
+const ListBody = ({items}: {items: Products[]}) => {
   return (
     <div className="flex-none max-[420px]:w-full px-6 max-[420px]:px-4 ">
-      <TableContainer component={Paper} sx={{ margin: '0' }}>
+      <TableContainer
+        component={Paper}
+        sx={{
+          margin: '0',
+        }}>
         <Table
           aria-label="simple table"
           sx={{
@@ -22,8 +26,7 @@ const ListBody = ({ items }: { items: Products[] }) => {
               display: 'block',
               width: '100%',
             },
-          }}
-        >
+          }}>
           <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>
@@ -33,12 +36,16 @@ const ListBody = ({ items }: { items: Products[] }) => {
                   '@media (max-width: 420px)': {
                     display: 'none',
                   },
-                }}
-              >
+                }}>
                 Description
               </TableCell>
               <TableCell>State</TableCell>
-              <TableCell sx={{ width: '160px' }}>Number Of Stations</TableCell>
+              <TableCell
+                sx={{
+                  width: '160px',
+                }}>
+                Number Of Stations
+              </TableCell>
               <TableCell>Enable</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>

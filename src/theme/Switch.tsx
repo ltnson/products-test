@@ -1,7 +1,7 @@
-import { styled } from '@mui/material/styles';
+import {styled} from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 
-const AntSwitch = styled(Switch)(({ theme }) => ({
+const AntSwitch = styled(Switch)(({theme}) => ({
   width: 28,
   height: 16,
   padding: 0,
@@ -47,7 +47,5 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 export default function AntSwitches() {
-  return (
-    <AntSwitch defaultChecked inputProps={{ 'aria-label': 'ant design' }} />
-  );
+  return <AntSwitch defaultChecked inputProps={{'aria-label': 'ant design'}} />;
 }

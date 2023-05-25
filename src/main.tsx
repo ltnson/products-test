@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
-import { BrowserRouter } from 'react-router-dom';
-import { QueryClientProvider, QueryClient } from 'react-query';
-import { ThemeProvider } from '@mui/material';
+import {BrowserRouter} from 'react-router-dom';
+import {QueryClientProvider, QueryClient} from 'react-query';
+import {ThemeProvider} from '@mui/material';
 import theme from './theme/MUIthemeCSS.ts';
 import 'typeface-exo';
 const queryClient = new QueryClient();

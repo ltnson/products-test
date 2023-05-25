@@ -1,17 +1,17 @@
-import { DummyData, FormData, VoidFnt } from '../../models/types';
+import {DummyData, FormData, VoidFnt} from '../../models/types';
 
 import axios from 'axios';
-import toast, { Toaster } from 'react-hot-toast';
+import toast, {Toaster} from 'react-hot-toast';
 
-import { useMutation } from 'react-query';
+import {useMutation} from 'react-query';
 
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import {useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { Button, TextareaAutosize, Toolbar, Typography } from '@mui/material';
+import {Button, TextareaAutosize, Toolbar, Typography} from '@mui/material';
 import typeApi from '../../api/typeApi';
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 
 const schema = yup.object({
   title: yup
@@ -25,7 +25,7 @@ const schema = yup.object({
     .min(20, 'Description is too short'),
 });
 
-const AddProduct = ({ onSetHidden }: { onSetHidden: VoidFnt }) => {
+const AddProduct = ({onSetHidden}: {onSetHidden: VoidFnt}) => {
   const dummyData: DummyData = {
     title: '',
     description: '',
@@ -42,7 +42,7 @@ const AddProduct = ({ onSetHidden }: { onSetHidden: VoidFnt }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {errors},
   } = useForm<FormData>({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -52,7 +52,7 @@ const AddProduct = ({ onSetHidden }: { onSetHidden: VoidFnt }) => {
     mode: 'onBlur',
   });
 
-  const { mutate, data, error } = useMutation((dummyData: DummyData) =>
+  const {mutate, data, error} = useMutation((dummyData: DummyData) =>
     typeApi.addOne(dummyData),
   );
 
@@ -81,32 +81,27 @@ const AddProduct = ({ onSetHidden }: { onSetHidden: VoidFnt }) => {
     <div
       className="w-full h-full z-20 top-0 left-0 fixed flex justify-end
                  md:justify-end max-[420px]:justify-center"
-      style={{ background: 'rgba(0,0,0,0.4)' }}
-    >
+      style={{background: 'rgba(0,0,0,0.4)'}}>
       <form
         className="h-full overflow-auto  bg-white w-96 md:h-auto
-                       md:max-lg:w-2/3  max-[420px]:w-full"
-      >
+                       md:max-lg:w-2/3  max-[420px]:w-full">
         <Toolbar>
           <Typography
             component="div"
-            sx={{ fontSize: '18px', fontWeight: '500' }}
-          >
+            sx={{fontSize: '18px', fontWeight: '500'}}>
             Add Station
           </Typography>
           <Typography component="div">
             <Button
               className="button-1"
-              sx={{ marginRight: '16px' }}
-              onClick={() => onSetHidden()}
-            >
+              sx={{marginRight: '16px'}}
+              onClick={() => onSetHidden()}>
               Cancel
             </Button>
             <Button
               className="button-2"
               type="submit"
-              onClick={handleSubmit(onSubmit)}
-            >
+              onClick={handleSubmit(onSubmit)}>
               Save
             </Button>
           </Typography>
@@ -124,8 +119,7 @@ const AddProduct = ({ onSetHidden }: { onSetHidden: VoidFnt }) => {
           )}
           <Typography
             className="bg-zinc-200 p-2 rounded-t-md "
-            sx={{ fontWeight: 'bold' }}
-          >
+            sx={{fontWeight: 'bold'}}>
             Title
           </Typography>
           <TextareaAutosize
@@ -135,9 +129,8 @@ const AddProduct = ({ onSetHidden }: { onSetHidden: VoidFnt }) => {
             {...register('title')}
           />
           <Typography
-            sx={{ fontWeight: 'bold' }}
-            className="bg-zinc-200 p-2 rounded-t-md"
-          >
+            sx={{fontWeight: 'bold'}}
+            className="bg-zinc-200 p-2 rounded-t-md">
             Description
           </Typography>
           <TextareaAutosize

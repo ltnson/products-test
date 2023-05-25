@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { Button, TextField, Toolbar, Typography } from '@mui/material';
+import {useState} from 'react';
+import {Button, TextField, Toolbar, Typography} from '@mui/material';
 import AddProduct from '../addProduct/AddProduct';
 import IconGlass from '../../theme/IconGlass';
 
-const ListTop = ({ onSearch }: { onSearch: any }) => {
+const ListTop = ({onSearch}: {onSearch: any}) => {
   const [hideAdd, setHideAdd] = useState<Boolean>(false);
 
   const handleSetAddHidden = () => {
@@ -28,8 +28,7 @@ const ListTop = ({ onSearch }: { onSearch: any }) => {
                 '@media (max-width: 420px)': {
                   display: 'none',
                 },
-              }}
-            >
+              }}>
               <IconGlass />
               Stations
             </Button>

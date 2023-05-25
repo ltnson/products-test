@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 import {
   AppBar,
@@ -10,7 +10,7 @@ import {
   MenuItem,
   IconButton,
 } from '@mui/material';
-import { Dehaze } from '@mui/icons-material';
+import {Dehaze} from '@mui/icons-material';
 
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -31,28 +31,25 @@ const NavBar = () => {
               padding: '0 ',
               paddingBottom: '16px',
             },
-          }}
-        >
+          }}>
           <Typography variant="h6" component="div">
             <IconButton
-              sx={{ borderRadius: '8px', width: '40px', height: '40px' }}
+              sx={{borderRadius: '8px', width: '40px', height: '40px'}}
               id="programs"
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
                 setAnchorEl(e.currentTarget)
               }
               aria-controls={openMenu ? 'programs-menu' : undefined}
               aria-haspopup={true}
-              arira-aria-expanded={openMenu ? 'true' : undefined}
-            >
+              arira-aria-expanded={openMenu ? 'true' : undefined}>
               <Dehaze />
             </IconButton>
             <Menu
               id="programs-menu"
               anchorEl={anchorEl}
               open={openMenu}
-              MenuListProps={{ 'aria-labelledby': 'programs-menu' }}
-              onClose={() => setAnchorEl(null)}
-            >
+              MenuListProps={{'aria-labelledby': 'programs-menu'}}
+              onClose={() => setAnchorEl(null)}>
               <MenuItem onClick={handleGoProducts}>Products</MenuItem>
               <MenuItem onClick={() => setAnchorEl(null)}>Blog</MenuItem>
               <MenuItem onClick={() => setAnchorEl(null)}>Potcats</MenuItem>
@@ -64,8 +61,7 @@ const NavBar = () => {
               <div>
                 <p
                   className="text-end text-sm font-semibold"
-                  style={{ color: '#004744' }}
-                >
+                  style={{color: '#004744'}}>
                   Sam Rabera
                 </p>
                 <p className="text-end text-sm text-slate-500 m-0">

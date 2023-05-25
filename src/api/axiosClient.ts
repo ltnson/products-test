@@ -41,7 +41,7 @@ const axiosClient = {
   updateByID: async (id: number, payload: any) => {
     try {
       const response = await axios.put(`${UPDATE_URL}${id}`, {
-        headers: { 'Content-Type': 'application/json' },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(payload),
       });
       const jsonData = response.data;
@@ -53,7 +53,7 @@ const axiosClient = {
   addOne: async (payload: any) => {
     try {
       const response = await axios.post(`${ADD_URL}`, {
-        headers: { 'Content-Type': 'application/json' },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(payload),
       });
       const jsonData = response.data;

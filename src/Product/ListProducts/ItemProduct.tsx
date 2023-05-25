@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { VoidFnt } from '../../models/types';
+import {useState} from 'react';
+import {VoidFnt} from '../../models/types';
 
-import { TableRow, TableCell, Button } from '@mui/material';
-import DeleteUi from '../deleteUi/DeleteUi';
+import {TableRow, TableCell, Button} from '@mui/material';
+import DeleteUi from '../deleteProduct/DeleteUi';
 import EditProduct from '../EditProduct/EditProduct';
-import StationDetail from '../stationDetail/StationDetail';
+import StationDetail from '../viewProduct/StationDetail';
 import Switch from '../../theme/Switch';
 
-const ItemProduct = ({ item }: { item: any }) => {
+const ItemProduct = ({item}: {item: any}) => {
   const [hidden, setHidden] = useState<Boolean>(false);
   const [hideView, setHideView] = useState<Boolean>(false);
   const [hideEdit, setHideEdit] = useState<Boolean>(false);
@@ -35,8 +35,7 @@ const ItemProduct = ({ item }: { item: any }) => {
           '@media (max-width: 420px)': {
             display: 'none',
           },
-        }}
-      >
+        }}>
         {item.description}
       </TableCell>
       <TableCell>{item.rating}</TableCell>
@@ -47,21 +46,18 @@ const ItemProduct = ({ item }: { item: any }) => {
       <TableCell>
         <div className="flex md:max-lg:flex-col max-[765px]:flex-col">
           <Button
-            sx={{ color: '#004744', paddingLeft: '0' }}
-            onClick={() => handleSetViewHidden()}
-          >
+            sx={{color: '#004744', paddingLeft: '0'}}
+            onClick={() => handleSetViewHidden()}>
             VIEW
           </Button>
           <Button
-            sx={{ color: '#004744', paddingLeft: '0' }}
-            onClick={() => handleSetEditHidden()}
-          >
+            sx={{color: '#004744', paddingLeft: '0'}}
+            onClick={() => handleSetEditHidden()}>
             EDIT
           </Button>
           <Button
-            sx={{ color: '#7C7B7B', paddingLeft: '0' }}
-            onClick={() => handleSetHidden()}
-          >
+            sx={{color: '#7C7B7B', paddingLeft: '0'}}
+            onClick={() => handleSetHidden()}>
             DELETE
           </Button>
         </div>

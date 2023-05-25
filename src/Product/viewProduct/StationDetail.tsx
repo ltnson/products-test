@@ -1,5 +1,5 @@
-import { Typography, Toolbar, Button, CardMedia, Box } from '@mui/material';
-import { Product, VoidFnt } from '../../models/types';
+import {Typography, Toolbar, Button, CardMedia, Box} from '@mui/material';
+import {Product, VoidFnt} from '../../models/types';
 
 const StationDetail = ({
   onSetHidden,
@@ -13,16 +13,16 @@ const StationDetail = ({
   return (
     <div
       className="w-full h-full z-20 top-0 left-0 fixed flex justify-end 
-                md:justify-end max-[420px]:justify-center"
-      style={{ background: 'rgba(0,0,0,0.4)' }}
-    >
-      <div className="h-full overflow-auto  bg-white w-96 md:h-auto  max-[420px]:w-full">
-        <Box className="block bg-white rounded-md p-10 max-[400px]:p-6">
-          <Toolbar style={{ padding: '0' }}>
+                md:justify-end max-[420px]:justify-center "
+      style={{background: 'rgba(0,0,0,0.4)'}}>
+      <div
+        className="h-full overflow-auto  bg-white w-96 md:h-auto
+                       md:max-lg:w-2/3  max-[420px]:w-full">
+        <Box className=" bg-white rounded-md p-10 max-[400px]:p-6">
+          <Toolbar style={{padding: '0'}}>
             <Typography
               component="div"
-              sx={{ fontSize: '20px', fontWeight: '500' }}
-            >
+              sx={{fontSize: '20px', fontWeight: '500'}}>
               Station Detail
             </Typography>
             <Typography
@@ -32,13 +32,11 @@ const StationDetail = ({
                   display: 'flex',
                   justifyContent: 'flex-end',
                 },
-              }}
-            >
+              }}>
               <Button
                 className="button-1"
-                sx={{ marginRight: '16px' }}
-                onClick={() => onSetHidden()}
-              >
+                sx={{marginRight: '16px'}}
+                onClick={() => onSetHidden()}>
                 Close
               </Button>
               <Button className="button-2" onClick={() => onSetEdit()}>
@@ -47,14 +45,14 @@ const StationDetail = ({
             </Typography>
           </Toolbar>
           <CardMedia
-            sx={{ borderRadius: '10px' }}
+            sx={{borderRadius: '10px'}}
             component="img"
             height="140"
             src={viewProd.images[0]}
           />
 
           <div className="flex flex-col gap-2 mt-4">
-            <Typography variant="h6" sx={{ color: 'black' }}>
+            <Typography variant="h6" sx={{color: 'black'}}>
               {viewProd.title}
             </Typography>
             <Typography>Last update 24/07/2022 11:35:37</Typography>
