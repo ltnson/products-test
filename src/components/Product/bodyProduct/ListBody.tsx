@@ -22,18 +22,30 @@ const ListBody = ({items}: {items: Products[]}) => {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>State</TableCell>
+              <TableCell>
+                <p>ID</p>
+              </TableCell>
+              <TableCell>
+                <p>Name</p>
+              </TableCell>
+              <TableCell>
+                <p>Description</p>
+              </TableCell>
+              <TableCell>
+                <p>State</p>
+              </TableCell>
               <TableCell
                 sx={{
                   width: '160px',
                 }}>
-                Number Of Stations
+                <p>Number Of Stations</p>
               </TableCell>
-              <TableCell>Enable</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell>
+                <p>Enable</p>
+              </TableCell>
+              <TableCell>
+                <p>Actions</p>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

@@ -113,6 +113,7 @@ const ListProducts = () => {
                 paddingBottom: '10px',
                 '@media (max-width: 420px)': {
                   paddingBottom: '0',
+                  fontSize: '15px',
                 },
               }}>
               Showing {skip > 0 ? skip / limit + 1 : 1} to{' '}

@@ -28,11 +28,21 @@ const ItemProduct = ({item}: {item: any}) => {
 
   return (
     <TableRow>
-      <TableCell>{item.id}</TableCell>
-      <TableCell>{item.title}</TableCell>
-      <TableCell>{item.description}</TableCell>
-      <TableCell>{item.rating}</TableCell>
-      <TableCell>{item.category}</TableCell>
+      <TableCell>
+        <p>{item.id}</p>
+      </TableCell>
+      <TableCell>
+        <p>{item.title}</p>
+      </TableCell>
+      <TableCell>
+        <p>{item.description}</p>
+      </TableCell>
+      <TableCell>
+        <p>{item.rating}</p>
+      </TableCell>
+      <TableCell>
+        <p>{item.category}</p>
+      </TableCell>
       <TableCell>
         <Switch />
       </TableCell>
@@ -41,17 +51,17 @@ const ItemProduct = ({item}: {item: any}) => {
           <Button
             sx={{color: '#004744', paddingLeft: '0'}}
             onClick={() => handleSetViewHidden()}>
-            VIEW
+            <p>VIEW</p>
           </Button>
           <Button
             sx={{color: '#004744', paddingLeft: '0'}}
             onClick={() => handleSetEditHidden()}>
-            EDIT
+            <p> EDIT</p>
           </Button>
           <Button
             sx={{color: '#7C7B7B', paddingLeft: '0'}}
             onClick={() => handleSetHidden()}>
-            DELETE
+            <p> DELETE</p>
           </Button>
         </div>
         {hidden && (
