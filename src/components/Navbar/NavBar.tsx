@@ -23,18 +23,33 @@ const NavBar = () => {
   };
 
   return (
-    <div className="h-16 max-[420px]:my-6 max-[420px]:h-auto bg-white">
+    <div className="h-16 max-[420px]:h-auto bg-white">
       <AppBar position="static" color="transparent">
         <Toolbar
           sx={{
             '@media (max-width: 420px)': {
-              padding: '0 ',
+              padding: '6px 0 ',
               paddingBottom: '16px',
             },
           }}>
-          <Typography variant="h6" component="div">
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{
+              '@media (max-width: 420px)': {
+                fontSize: '16px',
+              },
+            }}>
             <IconButton
-              sx={{borderRadius: '8px', width: '40px', height: '40px'}}
+              sx={{
+                borderRadius: '8px',
+                width: '40px',
+                height: '40px',
+                '@media (max-width: 420px)': {
+                  width: '32px',
+                  height: '32px',
+                },
+              }}
               id="programs"
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
                 setAnchorEl(e.currentTarget)
@@ -60,15 +75,21 @@ const NavBar = () => {
             <div className="flex items-center ">
               <div>
                 <p
-                  className="text-end text-sm font-semibold"
+                  className="text-end text-sm font-semibold max-[420px]:text-xs"
                   style={{color: '#004744'}}>
                   Sam Rabera
                 </p>
-                <p className="text-end text-sm text-slate-500 m-0">
+                <p className="text-end text-sm text-slate-500 m-0 max-[420px]:text-xs">
                   Oraganisation Name
                 </p>
               </div>
-              <Avatar></Avatar>
+              <Avatar
+                sx={{
+                  '@media (max-width: 420px)': {
+                    width: '32px',
+                    height: '32px',
+                  },
+                }}></Avatar>
             </div>
           </Typography>
         </Toolbar>

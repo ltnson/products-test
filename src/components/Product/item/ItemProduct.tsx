@@ -30,21 +30,14 @@ const ItemProduct = ({item}: {item: any}) => {
     <TableRow>
       <TableCell>{item.id}</TableCell>
       <TableCell>{item.title}</TableCell>
-      <TableCell
-        sx={{
-          '@media (max-width: 420px)': {
-            display: 'none',
-          },
-        }}>
-        {item.description}
-      </TableCell>
+      <TableCell>{item.description}</TableCell>
       <TableCell>{item.rating}</TableCell>
       <TableCell>{item.category}</TableCell>
       <TableCell>
         <Switch />
       </TableCell>
       <TableCell>
-        <div className="flex md:max-lg:flex-col max-[765px]:flex-col">
+        <div className="flex">
           <Button
             sx={{color: '#004744', paddingLeft: '0'}}
             onClick={() => handleSetViewHidden()}>

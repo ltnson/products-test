@@ -66,7 +66,7 @@ const ListProducts = () => {
 
   if (search?.data && search.data.products.length > 0) {
     return (
-      <div className="h-auto text-slate-500 text-sm w-full px-4">
+      <div className="h-[90%] text-slate-700 text-sm flex flex-col w-full px-4 max-[420px]:px-0 md:p-1 max-[420px]:h-2/3">
         <ListTop onSearch={handleSearch} />
         {search.isLoading && (
           <div className="w-full h-96 flex justify-center items-center">
@@ -79,11 +79,18 @@ const ListProducts = () => {
           </div>
         )}
         {search.data && <ListBody items={search.data?.products} />}
+        {search.data && (
+          <div className="flex justify-center items-end h-full py-10">
+            <Typography variant="h6">
+              Found {search.data?.products.length} Products
+            </Typography>
+          </div>
+        )}
       </div>
     );
   } else if (searchKey === 'no' || products) {
     return (
-      <div className="min-h-[90%] text-slate-700 text-sm flex flex-col w-full px-4 max-[420px]:px-0 md:p-1">
+      <div className="h-[90%] text-slate-700 text-sm flex flex-col w-full px-4 max-[420px]:px-0 md:p-1">
         <ListTop onSearch={handleSearch} />
         {products.isLoading && (
           <div className="w-full h-96 flex justify-center items-center">
@@ -98,10 +105,16 @@ const ListProducts = () => {
         {products.data && <ListBody items={products.data?.products} />}
         {products.data && (
           <div
-            className="grow flex justify-between mx-6 h-full items-end py-8           
+            className="grow flex justify-between mx-6 h-full items-end            
            max-[900px]:flex-col 
           max-[900px]:items-center max-[900px]:gap-4 max-[900px]:justify-end">
-            <Typography>
+            <Typography
+              sx={{
+                paddingBottom: '10px',
+                '@media (max-width: 420px)': {
+                  paddingBottom: '0',
+                },
+              }}>
               Showing {skip > 0 ? skip / limit + 1 : 1} to{' '}
               {Math.ceil(products.data?.total / products.data?.limit)} of{' '}
               {products.data?.total} entries
@@ -112,6 +125,7 @@ const ListProducts = () => {
                 display: 'flex',
                 justifyContent: 'space-around',
                 gap: '20px',
+                paddingBottom: '10px',
               }}>
               <Select
                 value={limit}
@@ -175,20 +189,20 @@ const ListProducts = () => {
                 </Button>
               </ButtonGroup>
             </Typography>
-            <Toaster
-              position="top-right"
-              reverseOrder={false}
-              toastOptions={{
-                className: '',
-                style: {
-                  border: '0.2px solid #7367F0',
-                  padding: '8px',
-                  color: '#7367F0',
-                },
-              }}
-            />
           </div>
         )}
+        <Toaster
+          position="top-right"
+          reverseOrder={false}
+          toastOptions={{
+            className: '',
+            style: {
+              border: '0.2px solid #7367F0',
+              padding: '8px',
+              color: '#7367F0',
+            },
+          }}
+        />
       </div>
     );
   }

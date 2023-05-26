@@ -159,7 +159,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           '@media (max-width: 420px)': {
-            padding: '2px',
+            padding: '4px',
           },
         },
       },

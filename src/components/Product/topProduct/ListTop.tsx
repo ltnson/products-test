@@ -11,7 +11,7 @@ const ListTop = ({onSearch}: {onSearch: any}) => {
   };
 
   return (
-    <div className="flex-none">
+    <div className="flex-none h-14">
       {hideAdd && <AddProduct onSetHidden={handleSetAddHidden} />}
 
       <Toolbar>
