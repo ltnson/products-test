@@ -28,8 +28,8 @@ const ListBody = ({items}: {items: Products[]}) => {
               <TableCell>
                 <p className="text-center">Name</p>
               </TableCell>
-              <TableCell sx={{display: 'block', width: '350px'}}>
-                <p className="text-center">Description</p>
+              <TableCell>
+                <p className="text-center block w-96">Description</p>
               </TableCell>
               <TableCell>
                 <p className="text-center">State</p>
