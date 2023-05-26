@@ -13,7 +13,7 @@ import ItemProduct from '../item/ItemProduct';
 
 const ListBody = ({items}: {items: Products[]}) => {
   return (
-    <div className="flex-none max-[420px]:text-xs max-[420px]:w-full px-6 max-[420px]:px-4 block  overflow-auto max-h-[78%]">
+    <div className="flex-none max-[420px]:text-xs  px-6 max-[420px]:px-4 block  overflow-auto max-h-[78%]">
       <TableContainer
         component={Paper}
         sx={{
@@ -29,7 +29,9 @@ const ListBody = ({items}: {items: Products[]}) => {
                 <p className="text-center">Name</p>
               </TableCell>
               <TableCell>
-                <p className="text-center block w-96">Description</p>
+                <p className="text-center max-[420px]:block max-[420px]:w-80 sm:block sm:w-80">
+                  Description
+                </p>
               </TableCell>
               <TableCell>
                 <p className="text-center">State</p>

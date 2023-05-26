@@ -66,7 +66,7 @@ const ListProducts = () => {
 
   if (search?.data && search.data.products.length > 0) {
     return (
-      <div className="h-[90%] text-slate-700 text-sm flex flex-col w-full px-4 max-[420px]:px-0 md:p-1 max-[420px]:h-2/3">
+      <div className="h-[90%] text-slate-700 text-sm flex flex-col w-full px-4 max-[420px]:px-0 md:p-1">
         <ListTop onSearch={handleSearch} />
         {search.isLoading && (
           <div className="w-full h-96 flex justify-center items-center">
@@ -79,8 +79,9 @@ const ListProducts = () => {
           </div>
         )}
         {search.data && <ListBody items={search.data?.products} />}
+
         {search.data && (
-          <div className="flex justify-center items-end h-full py-10">
+          <div className="w-full py-6 max-[420px]:px-4 sm:px-6">
             <Typography variant="h6">
               Found {search.data?.products.length} Products
             </Typography>
@@ -107,13 +108,13 @@ const ListProducts = () => {
           <div
             className="grow flex justify-between mx-6 h-full items-end            
            max-[900px]:flex-col max-[420px]:gap-2
-          max-[900px]:items-center max-[900px]:gap-4 max-[900px]:justify-end">
+          max-[900px]:items-center max-[767px]:gap-4 max-[900px]:justify-end">
             <Typography
               sx={{
                 paddingBottom: '10px',
                 '@media (max-width: 420px)': {
                   paddingBottom: '0',
-                  fontSize: '15px',
+                  fontSize: '12px',
                 },
               }}>
               Showing {Math.ceil(skip > 0 ? skip / limit + 1 : 1)} to{' '}
@@ -134,6 +135,10 @@ const ListProducts = () => {
                   width: '130px',
                   borderRadius: '0',
                   border: '1px solid black',
+                  '@media (max-width: 420px)': {
+                    height: '26px',
+                    fontSize: '12px',
+                  },
                 }}
                 onChange={(e) => setLimit(e.target.value as number)}>
                 <MenuItem value={10}>10 per page</MenuItem>

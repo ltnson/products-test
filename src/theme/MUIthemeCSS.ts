@@ -66,6 +66,10 @@ const theme = createTheme({
             border: '1px black solid',
             with: '30px',
           },
+          '@media (max-width: 420px)': {
+            height: '26px',
+            fontSize: '12px',
+          },
         },
       },
     },
@@ -95,6 +99,10 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           marginRight: '12px',
+          '@media (max-width: 420px)': {
+            height: '26px',
+            fontSize: '12px',
+          },
         },
       },
     },
@@ -147,6 +155,7 @@ const theme = createTheme({
         },
       },
     },
+
     MuiTableContainer: {
       styleOverrides: {
         root: {
@@ -158,8 +167,11 @@ const theme = createTheme({
     MuiTableCell: {
       styleOverrides: {
         root: {
+          padding: '12px',
           '@media (max-width: 420px)': {
-            padding: '8px',
+            height: '26px',
+            fontSize: '12px',
+            padding: '6px',
           },
         },
       },

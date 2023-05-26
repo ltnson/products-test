@@ -35,7 +35,7 @@ const AddProduct = ({onSetHidden}: {onSetHidden: VoidFnt}) => {
     stock: 94,
     brand: 'Apple',
     category: 'smartphones',
-    thumbnail: '...',
+    thumbnail: '...kbkvkjhbjmbkjbkljbnj',
     images: ['some string'],
   };
 

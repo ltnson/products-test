@@ -21,6 +21,14 @@ const ListTop = ({onSearch}: {onSearch: any}) => {
               placeholder="Search Programs"
               size="small"
               onChange={(e) => onSearch(e.target.value)}
+              sx={{
+                '& .MuiInputBase-root': {
+                  '@media (max-width: 420px)': {
+                    height: '26px',
+                    fontSize: '12px',
+                  },
+                },
+              }}
             />
             <Button
               className="button-1"
