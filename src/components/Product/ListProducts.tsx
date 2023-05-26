@@ -21,7 +21,7 @@ const ListProducts = () => {
   const [limit, setLimit] = useState<number>(5);
   const [skip, setSkip] = useState<number>(0);
   const [searchKey, setSearchKey] = useState<string>('');
-  const buttons = [1, 2, 3, 4, 5, 6];
+  const buttons = [1, 2, 3, 4, 5];
 
   const products = useQuery({
     queryKey: ['products', limit, skip],
@@ -141,6 +141,7 @@ const ListProducts = () => {
                   },
                 }}
                 onChange={(e) => setLimit(e.target.value as number)}>
+                <MenuItem value={20}>20 per page</MenuItem>
                 <MenuItem value={10}>10 per page</MenuItem>
                 <MenuItem value={5}>5 per page</MenuItem>
               </Select>
@@ -185,7 +186,7 @@ const ListProducts = () => {
                 <Button
                   onClick={() =>
                     handleGoPageNumb(
-                      skip < products.data?.total ? skip + limit : skip,
+                      skip + limit < products.data?.total ? skip + limit : skip,
                     )
                   }
                   sx={{

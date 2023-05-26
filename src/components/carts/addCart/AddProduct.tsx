@@ -82,9 +82,7 @@ const AddProduct = ({onSetHidden}: {onSetHidden: VoidFnt}) => {
       className="w-full h-full z-20 top-0 left-0 fixed flex justify-end
                  md:justify-end max-[420px]:justify-center"
       style={{background: 'rgba(0,0,0,0.4)'}}>
-      <form
-        className="h-full overflow-auto  bg-white w-96 md:h-auto
-                       md:max-lg:w-2/3  max-[420px]:w-full">
+      <form className="h-full overflow-auto  bg-white w-96 md:h-auto md:max-lg:w-2/3  max-[420px]:w-full">
         <Toolbar>
           <Typography
             component="div"
