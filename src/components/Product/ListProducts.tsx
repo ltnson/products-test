@@ -106,7 +106,7 @@ const ListProducts = () => {
         {products.data && (
           <div
             className="grow flex justify-between mx-6 h-full items-end            
-           max-[900px]:flex-col 
+           max-[900px]:flex-col max-[420px]:gap-2
           max-[900px]:items-center max-[900px]:gap-4 max-[900px]:justify-end">
             <Typography
               sx={{
@@ -116,7 +116,7 @@ const ListProducts = () => {
                   fontSize: '15px',
                 },
               }}>
-              Showing {skip > 0 ? skip / limit + 1 : 1} to{' '}
+              Showing {Math.ceil(skip > 0 ? skip / limit + 1 : 1)} to{' '}
               {Math.ceil(products.data?.total / products.data?.limit)} of{' '}
               {products.data?.total} entries
             </Typography>
@@ -161,7 +161,7 @@ const ListProducts = () => {
                     },
                   }}>
                   <p className="text-white">
-                    {skip > 0 ? skip / limit + 1 : 1}
+                    {Math.ceil(skip > 0 ? skip / limit + 1 : 1)}
                   </p>
                 </Button>
                 {buttons.map((i) => (

@@ -13,7 +13,7 @@ import ItemProduct from '../item/ItemProduct';
 
 const ListBody = ({items}: {items: Products[]}) => {
   return (
-    <div className="flex-none max-[420px]:text-xs max-[420px]:w-full px-6 max-[420px]:px-4 block  overflow-auto max-h-[78%]  ">
+    <div className="flex-none max-[420px]:text-xs max-[420px]:w-full px-6 max-[420px]:px-4 block  overflow-auto max-h-[78%]">
       <TableContainer
         component={Paper}
         sx={{
@@ -23,28 +23,25 @@ const ListBody = ({items}: {items: Products[]}) => {
           <TableHead>
             <TableRow>
               <TableCell>
-                <p>ID</p>
+                <p className="text-center">ID</p>
               </TableCell>
               <TableCell>
-                <p>Name</p>
+                <p className="text-center">Name</p>
+              </TableCell>
+              <TableCell sx={{display: 'block', width: '350px'}}>
+                <p className="text-center">Description</p>
               </TableCell>
               <TableCell>
-                <p>Description</p>
+                <p className="text-center">State</p>
               </TableCell>
               <TableCell>
-                <p>State</p>
-              </TableCell>
-              <TableCell
-                sx={{
-                  width: '160px',
-                }}>
-                <p>Number Of Stations</p>
+                <p className="text-center">Number Of Stations</p>
               </TableCell>
               <TableCell>
-                <p>Enable</p>
+                <p className="text-center">Enable</p>
               </TableCell>
               <TableCell>
-                <p>Actions</p>
+                <p className="text-center">Actions</p>
               </TableCell>
             </TableRow>
           </TableHead>
